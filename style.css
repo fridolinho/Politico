@@ -116,6 +116,10 @@ width: 50%;
 	font-weight: bold;
 	color: black;
 }
+
+.form p {
+	text-align: center;
+}
 footer {
 	position: fixed;
 	bottom: 0px;
