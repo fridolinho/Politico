@@ -46,6 +46,58 @@ table {
 	border-spacing: 0;
 }
 #container {
-	background-color: #90caf9;
+	background-color: #ebf0f5;
 	padding: 20px 30px;
+	margin-top: 20px;
+	height: 100vh;
+}
+
+#details{
+display: block;
+float: left;
+width: 50%;
+}
+
+#form {
+display: block;
+float: right;
+width: 50%;
+}
+.clear {
+	clear: both;
+}
+
+.form {
+	background-color: #90caf9;
+	border-radius: 10px;
+	padding: 10px 20px;
+	width: 200px;
+	margin: 0 auto;
+}
+.form h1 {
+	text-align: center;
+	font-size: 20px;
+	margin-bottom: 30px;
+}
+
+footer {
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	background-color: #90caf9;
+	padding: 10px 20px;
+}
+footer p {
+	text-align: center;
+}
+
+header {
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	background-color: #90caf9;
+	padding: 10px 20px;
+}
+footer p {
+	text-align: center;
 }
