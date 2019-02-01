@@ -236,6 +236,12 @@ footer p {
 	margin-left: 20px;
 }
 
+#new_office {
+	display: none;
+	z-index: 99;
+	margin-left: 20px;
+}
+
 button {
 	padding: 5px 10px;
 	border-radius: 2px;
