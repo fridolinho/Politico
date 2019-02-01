@@ -3,13 +3,32 @@
 <head>
 	<title>Politico</title>
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
-	<header>POLITICO Web App</header>
+	<header>
+		POLITICO Web App
+		<span class="right">
+			<a href="user.html"><i class='far fa-user'></i> Fridolin Niyonsaba </a>
+			<a href="index.html"><i class='fas fa-power-off'></i> Logout</a>
+		</span>
+	</header>
 	<div id="container2">
 		<div class="parties">
 			<h2>Political Parties</h2>
+			<button onclick="newParty()">Add Political Party</button> <br>
+			<div class="add_party" id="new_party">
+				<h2>New Political Party</h2>
+				<form method="post" action="#" enctype="multipart/form-data">
+					<input type="text" name="name" placeholder="position">
+					<div class="textbox">
+					<label>Image:</label>
+					<input type="file" name="image" value="add image">
+					</div>
+					<button type="submit" name="add_meetup">Add</button>
+				</form>
+			</div><!-- to be seen my the admin only -->
 			<a href="political_party.html">
 				<div class="party">
 					<img src="images/republican.png">
@@ -68,6 +87,17 @@
 			
 
 	</div>
+
+	<script>
+	function newParty() {
+	  var x = document.getElementById("new_party");
+	  if (x.style.display != "block") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	}
+	};
+	</script>
 
 	<footer><p>Copyright - Politico &copy; 2019</p></footer>
 </body>

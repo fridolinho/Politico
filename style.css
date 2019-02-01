@@ -201,4 +201,63 @@ footer p {
 	text-align: center;
 }
 
- 
+ .right {
+ 	position: absolute;
+ 	right: 5px;
+ 	margin-right: 40px;
+ }
+.add_party {
+	width: 250px;
+	padding: 20px 30px;
+	border-radius: 2px;
+	background-color: #ababab;
+	position: fixed;
+}
+
+
+
+.add_party input {
+	background-color: white transparent;
+	padding: 10px 0px;
+	border: 1px solid white;
+	margin-bottom: 10px;
+	width: 100%;
+	border:none;
+	text-align: center;
+}
+
+.add_party button {
+	width: 100%;
+}
+
+#new_party {
+	display: none;
+	z-index: 99;
+	margin-left: 20px;
+}
+
+button {
+	padding: 5px 10px;
+	border-radius: 2px;
+	background-color: #90caf9;
+	margin-bottom:20px;
+	border-color: white;
+}
+.fileContainer {
+    overflow: hidden;
+    position: relative;
+}
+
+.fileContainer [type=file] {
+    cursor: inherit;
+    display: block;
+    font-size: 999px;
+    filter: alpha(opacity=0);
+    min-height: 100%;
+    min-width: 100%;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 0;
+}
