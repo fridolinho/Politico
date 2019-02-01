@@ -212,6 +212,9 @@ footer p {
 	border-radius: 2px;
 	background-color: #ababab;
 	position: fixed;
+	display: none;
+	z-index: 99;
+	margin-left: 20px;
 }
 
 
@@ -228,18 +231,6 @@ footer p {
 
 .add_party button {
 	width: 100%;
-}
-
-#new_party {
-	display: none;
-	z-index: 99;
-	margin-left: 20px;
-}
-
-#new_office {
-	display: none;
-	z-index: 99;
-	margin-left: 20px;
 }
 
 button {
