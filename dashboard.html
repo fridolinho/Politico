@@ -18,17 +18,18 @@
 		<div class="parties">
 			<h2>Political Parties</h2>
 			<button onclick="newParty()">Add Political Party</button> <br>
+			<!-- to be seen my the admin only -->
 			<div class="add_party" id="new_party">
 				<h2>New Political Party</h2>
 				<form method="post" action="#" enctype="multipart/form-data">
-					<input type="text" name="name" placeholder="position">
+					<input type="text" name="name" placeholder="Name">
 					<div class="textbox">
 					<label>Image:</label>
 					<input type="file" name="image" value="add image">
 					</div>
 					<button type="submit" name="add_meetup">Add</button>
 				</form>
-			</div><!-- to be seen my the admin only -->
+			</div>
 			<a href="political_party.html">
 				<div class="party">
 					<img src="images/republican.png">
@@ -45,6 +46,15 @@
 		</div>
 		<div class="offices">
 			<h2>Political offices available</h2>
+			<button onclick="newOffice()">Add Political Office</button><br>
+			<div class="add_party" id="new_office">
+				<h2>New Political Office</h2>
+				<form method="post" action="#">
+					<input type="text" name="name" placeholder="position">
+					<input type="text" name="type" placeholder="type">
+					<button type="submit" name="add_meetup">Add</button>
+				</form>
+			</div>
 			<div class="office">
 				<p>Governor/ Kigali City<br>
 					<b>Type:</b> Local Government
@@ -91,6 +101,15 @@
 	<script>
 	function newParty() {
 	  var x = document.getElementById("new_party");
+	  if (x.style.display != "block") {
+	    x.style.display = "block";
+	  } else {
+	    x.style.display = "none";
+	}
+	};
+
+	function newOffice() {
+	  var x = document.getElementById("new_office");
 	  if (x.style.display != "block") {
 	    x.style.display = "block";
 	  } else {
