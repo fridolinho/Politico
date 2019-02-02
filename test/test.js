@@ -19,7 +19,19 @@ describe('POST Political party', () => {
 		.end((err, res) => {
 			res.should.have.status(201);
 			res.body.should.be.a('object');
-			console.log(res.body);
+			done();
+		});
+	});
+});
+
+describe('GET all Political parties', () => {
+	it('it should show all political parties', (done) => {
+		chai.request(server)
+		.get('/api/v1/parties')
+				
+		.end((err, res) => {
+			res.should.have.status(200);
+			res.body.should.be.a('object');
 			done();
 		});
 	});
