@@ -300,3 +300,16 @@ button {
 	background-color: #fff;
 	border: 1px solid #ababab;
 }
+				.pass {
+	display: none;
+}
+.pass input {
+	margin-bottom: 10px;
+	padding: 10px 20px
+}
+
+.pass h3 {
+	font-weight: bold;
+	font-size: 14px;
+	margin-bottom: 10px;
+}
