@@ -258,3 +258,16 @@ button {
     text-align: right;
     top: 0;
 }
+
+.candidate {
+	width: 40%;
+	float: left;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+
+.candidate p {
+	padding: 10px 20px;
+	background-color: #fff;
+	border: 1px solid #ababab;
+}
