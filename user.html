@@ -22,7 +22,15 @@
 				Email: fridolinho@gmail.com<br><br>
 				Phone number: 0788232369<br><br>
 				Political Party: none<br><br>
-				
+				<button onclick="resetPass()">Reset Password</button>
+				<div id="pass" class="pass">
+					<h3>Change Password</h3>
+					<form>
+						<input type="password" name="password" placeholder="password"><br>
+						<input type="password" name="name" placeholder="confirm password"><br>
+						<button type="button" onclick="resetPass()">Update</button>
+					</form>
+				</div>
 			</p>
 				
 		</div>
@@ -58,7 +66,16 @@
 						
 
 	</div>
-
+	<script>
+		function resetPass() {
+		  var x = document.getElementById("pass");
+		  if (x.style.display != "block") {
+		    x.style.display = "block";
+		  } else {
+		    x.style.display = "none";
+		}
+		};
+	</script>
 	<footer><p>Copyright - Politico &copy; 2019</p></footer>
 </body>
 </html>
