@@ -2,7 +2,9 @@ import 'babel-polyfill';
 import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../index';
+
 const should = chai.should();
+const expect = chai.expect();
 chai.use(chaiHttp);
 
 
