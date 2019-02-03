@@ -126,3 +126,25 @@ describe('GET specific Political office', () => {
 		});
 	});
 });
+
+describe('POST create user', () => {
+	it('it should create a user', (done) => {
+		chai.request(server)
+		.post('/api/v1/users/register')
+		.send({
+			firstname: "Niyonsaba",
+	        lastname: "Fridolin",
+	        email: "fridolinho@gmail.com",
+	        phonenumber: "0788232369",
+	        passporturl: "passport.png",
+	        password: "1234"
+		})
+		
+		.end((err, res) => {
+			res.should.have.status(201);
+			res.body.should.be.a('object');
+			console.log(res.body)
+			done();
+		});
+	});
+});
