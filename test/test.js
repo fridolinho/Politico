@@ -148,3 +148,21 @@ describe('POST create user', () => {
 		});
 	});
 });
+
+describe('POST login a user', () => {
+	it('it should login a user', (done) => {
+		chai.request(server)
+		.post('/api/v1/users/login')
+		.send({
+	        email: "fridolinho@gmail.com",
+	        password: "1234"
+		})
+		
+		.end((err, res) => {
+			res.should.have.status(200);
+			res.body.should.be.a('object');
+			console.log(res.body)
+			done();
+		});
+	});
+});
