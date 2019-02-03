@@ -69,6 +69,7 @@ class Party {
 	})	
 	}
 
+	// Update a specific political party
 
 	static async update(req, res){		
 		const party_id = parseInt(req.params.id);
@@ -103,6 +104,32 @@ class Party {
 					error: "political party not found"
 				});
 		} 		
+	}
+
+	// delete a particular political party
+
+	static async remove(req, res){
+		const party_id = parseInt(req.params.id);
+		let job = "";
+		for(let i = 0; i < parties.length; i ++){
+			if(parties[i].id == party_id){
+
+				parties.splice(i, 1);
+				res.status(200).send({
+					status: 200,
+					message: "Political party deleted"
+				});
+				job = "done";
+			} 			
+			 
+		}
+
+		if ( job != "done" ){
+			  res.status(404).send({
+					status: 404,
+					error: "political party not found"
+				});
+		} 	
 	}
 
 }
