@@ -49,7 +49,26 @@ class Party {
 		});
 	}
 
-	
+	// Fetch a specific political party record
+
+	static async getOne(req, res){
+		const party_id = parseInt(req.params.id);
+		const result = [];
+		for(let i = 0; i < parties.length; i ++){
+			if(parties[i].id == party_id){
+				result.push(parties[i]);
+			}
+		}
+	if(result.length == 0) return res.status(404).send({
+										status: 400,
+										error: "political party not found"
+									});
+	res.status(200).send({
+		status: 200,
+		data: result
+	})	
+	}
+
 }
 
 export default Party;
