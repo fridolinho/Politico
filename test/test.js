@@ -39,6 +39,21 @@ describe('GET all Political parties', () => {
 	});
 });
 
+
+describe('GET specific Political party', () => {
+	it('it should show specific political party', (done) => {
+		chai.request(server)
+		.get('/api/v1/parties/1')
+				
+		.end((err, res) => {
+			res.should.have.status(200);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+});
+
+
 describe('Patch specific Political party', () => {
 	it('it should update specific political party', (done) => {
 		chai.request(server)
@@ -61,6 +76,23 @@ describe('Delete specific Political party', () => {
 				
 		.end((err, res) => {
 			res.should.have.status(200);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+});
+
+describe('POST Political office', () => {
+	it('it should POST an office', (done) => {
+		chai.request(server)
+		.post('/api/v1/offices')
+		.send({
+			type: "federal",
+			name: "Governor"
+		})
+		
+		.end((err, res) => {
+			res.should.have.status(201);
 			res.body.should.be.a('object');
 			done();
 		});
