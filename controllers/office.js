@@ -47,6 +47,26 @@ class Office {
 			data: offices
 		});
 	}
+
+	// get specific political office
+
+	static async getOne(req, res){
+		const office_id = parseInt(req.params.id);
+		const result = [];
+		for(let i = 0; i < offices.length; i ++){
+			if(offices[i].id == office_id){
+				result.push(offices[i]);
+			}
+		}
+	if(result.length == 0) return res.status(404).send({
+										status: 404,
+										error: "political office not found"
+									});
+	res.status(200).send({
+			status: 200,
+			data: result
+		})
+	}
 }
 
 export default Office;
