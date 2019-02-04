@@ -1,3 +1,4 @@
+import 'babel-polyfill';
 import express from 'express';
 import party from './views/party';
 import office from './views/office';
