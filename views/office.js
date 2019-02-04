@@ -3,8 +3,8 @@ import Office from '../controllers/office';
 
 const router = express.Router();
 
-router.post('/', Office.createOffice);
-router.get('/', Office.getAllOffices);
-router.get('/:id', Office.getOneOffice);
+router.post('/', Office.create);
+router.get('/', Office.getAll);
+router.get('/:id', Office.getOne);
 
 export default router;
