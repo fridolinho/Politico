@@ -4,7 +4,7 @@ class Party {
 
 	// create a new political party
 
-	static async create(req, res){
+	static async createParty(req, res){
 
 		const schema = {
 			name: Joi.string().min(3).required().trim(),
@@ -36,7 +36,7 @@ class Party {
 	
 	//get all political parties
 
-	static async getAll(req, res){
+	static async getAllParties(req, res){
 		const count = parties.length;
 		if(count === 0)	return res.status(404).send({
 									status: 404,
@@ -51,7 +51,7 @@ class Party {
 
 	// Fetch a specific political party record
 
-	static async getOne(req, res){
+	static async getOneParty(req, res){
 		const party_id = parseInt(req.params.id);
 		const result = [];
 		for(let i = 0; i < parties.length; i ++){

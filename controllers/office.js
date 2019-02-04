@@ -5,7 +5,7 @@ class Office {
 
 	// create a political office
 
-	static async create(req, res) {
+	static async createOffice(req, res) {
 		const schema = {
 			type: Joi.string().min(5).required().trim(),
 			name: Joi.string().min(5).required().trim()
@@ -35,7 +35,7 @@ class Office {
 
 	//get all political offices
 
-	static async getAll(req, res){
+	static async getAllOffices(req, res){
 		const count = offices.length;
 		if(count === 0)	return res.status(404).send({
 									status: 404,
@@ -50,7 +50,7 @@ class Office {
 
 	// get specific political office
 
-	static async getOne(req, res){
+	static async getOneOffice(req, res){
 		const office_id = parseInt(req.params.id);
 		const result = [];
 		for(let i = 0; i < offices.length; i ++){

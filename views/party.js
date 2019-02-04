@@ -3,9 +3,9 @@ import Party from '../controllers/party';
 
 const router = express.Router();
 
-router.post('/', Party.create);
-router.get('/', Party.getAll);
-router.get('/:id', Party.getOne);
+router.post('/', Party.createParty);
+router.get('/', Party.getAllPrties);
+router.get('/:id', Party.getOneParty);
 router.patch('/:id', Party.update);
 router.delete('/:id', Party.remove);
 
