@@ -38,10 +38,6 @@ class Party {
 
 	static async getAll(req, res){
 		const count = parties.length;
-		if(count === 0)	return res.status(404).send({
-									status: 404,
-									error: 'No political party found'
-								});
 		
 		res.status(200).send({
 			status: 200,
