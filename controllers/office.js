@@ -16,7 +16,6 @@ class Office {
 		});
 		
 		const newOffice = Offices.createOffice(req.body);
-		console.log(newOffice);
 		res.status(201).send({
 			status: 201,
 			data: newOffice
