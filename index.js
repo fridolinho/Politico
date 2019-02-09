@@ -1,8 +1,8 @@
 import 'babel-polyfill';
 import express from 'express';
-import party from './views/party';
-import office from './views/office';
-import user from './views/user';
+import party from './routes/party';
+import office from './routes/office';
+import user from './routes/user';
 
 const app = express();
 app.use(express.json());
