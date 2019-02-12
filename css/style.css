@@ -29,6 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
 	line-height: 1;
+	background-color: #ebf0f5;
 }
 ol, ul {
 	list-style: none;
@@ -45,10 +46,19 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
+
+.sm-show {
+		display: none;
+	}
+
+
+
+
+
 #container {
 	background-color: #ebf0f5;
 	padding: 10% 30px 20% 30px;
-	height: 40vh;
+	height: 60vh;
 }
 
 #container2 {
@@ -66,7 +76,9 @@ table {
 #details{
 display: block;
 float: left;
-width: 50%;
+width: 45%;
+padding-left: 5%;
+min-width: : 400px;
 }
 
 #details h1 {
@@ -79,23 +91,24 @@ width: 50%;
 #details p {
 	font-size: 20px;
 	color: #635252;
-	width: 80%;
-	text-align: center;
 	margin-top: 20px;
+	text-align: justify-all;
 }
 
 #form {
 display: block;
 float: right;
-width: 50%;
+width: 40%;
 }
+
+
 .clear {
 	clear: both;
 }
 
 .form {
 	background-color: #ababab;
-	padding: 10px 20px;
+	padding: 10px 40px;
 	width: 350px;
 	margin: 0 auto;
 }
@@ -103,20 +116,28 @@ width: 50%;
 	text-align: center;
 	font-size: 20px;
 	margin-bottom: 30px;
+	font-weight: bold;
+}
+
+form label {
+	font-weight: bold;
+}
+
+form input {	
+	text-align: left;
+	padding: 10px 10px;
+	margin-top: 5px;
 }
 
 .form input {
-	background-color: white transparent;
-	padding: 10px 0px;
 	border: 1px solid white;
 	margin-bottom: 10px;
-	width: 100%;
+	width: 330px;
 	border:none;
-	text-align: center;
 }
 
 .form button {
-	width: 100%;
+	width: 350px;
 	background-color: #90caf9;
     border: none;
     padding: 10px 5px;
@@ -147,6 +168,7 @@ width: 50%;
 
 .parties {
 	width: 30%;
+	padding-left: 5%;
 	float: left;
 }
 .offices {
@@ -207,30 +229,77 @@ footer p {
  	margin-right: 40px;
  }
 .add_party {
-	width: 250px;
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.7); /* Black w/ opacity */
+
+	/*width: 250px;
 	padding: 20px 30px;
 	border-radius: 2px;
 	background-color: #ababab;
 	position: fixed;
 	display: none;
 	z-index: 99;
-	margin-left: 20px;
+	margin-left: 20px;*/
 }
 
 
 
-.add_party input {
-	background-color: white transparent;
-	padding: 10px 0px;
-	border: 1px solid white;
+.add_party input[type=text] {
+	padding: 10px 10px;
+	border: 1px solid black;
 	margin-bottom: 10px;
-	width: 100%;
-	border:none;
-	text-align: center;
+	margin-top: 10px;
+	width: 280px;
+	background-color: #888;
+
 }
 
 .add_party button {
 	width: 100%;
+}
+.confirm {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 200px;
+}
+.confirm button {
+	display: inline-block;
+	width: 90px;
+}
+.modal_form {
+	background-color: #888;
+	border-radius: 5px;
+	margin: auto;
+	padding: 20px 40px;
+	border: 1px solid #888;
+	width: 300px;
+}
+
+.close {
+  color: #fff;
+  position: fixed;
+  right: 40px;
+  top: 40px;
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 button {
@@ -238,7 +307,6 @@ button {
 	border-radius: 2px;
 	background-color: #90caf9;
 	margin-bottom:20px;
-	border-color: white;
 }
 .fileContainer {
     overflow: hidden;
@@ -312,4 +380,36 @@ button {
 	font-weight: bold;
 	font-size: 14px;
 	margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+	.sm-hide {
+		display: none;
+	}
+
+	.sm-show {
+		display: block;
+		padding: 50px 20px;
+	}
+	
+	.mobview h1 {
+		font-weight: bold;
+		text-align: center;
+		margin-bottom: 10px;
+	}
+	.mobview p {
+		margin-bottom: 20px;
+	}
+
+	.mobview .form {
+		width: 165px;
+	}
+
+	.form input {
+		width: 150px;
+	}
+
+	.form button {
+		width: 170px;
+	}
 }
