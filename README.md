@@ -102,4 +102,4 @@ It will install the node_modules which will help you run the project on your loc
 ---
 
 ## License & copyright
-Copyright (c) Fridolin Niyonsaba, Full-Stack developer
+Copyright (c) 2019 Fridolin Niyonsaba, Full-Stack developer
