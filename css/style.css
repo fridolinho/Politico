@@ -57,14 +57,37 @@ table {
 
 #container {
 	background-color: #ebf0f5;
-	padding: 10% 30px 20% 30px;
-	height: 60vh;
+	width: 80%;
+	margin: 150px auto;
 }
 
 #container2 {
 	background-color: #ebf0f5;
-	padding: 100px 30px;
-	height: 80vh;
+	width: 90%;
+	margin: 50px auto;
+}
+
+#container3 {
+	background-color: #ebf0f5;
+	width: 80%;
+	margin: 50px auto;
+}
+
+#container3 .parties {	
+	width: 33%;
+	margin-top: 60px;
+}
+
+#container3 .offices {
+	float: right;
+	width: 66%	
+	margin-top: 60px;
+}
+
+#container3 h2 {
+	font-weight: bold;
+	font-size: 25px;
+	margin-bottom: 20px;
 }
 
 #container2 h2 {
@@ -79,11 +102,12 @@ float: left;
 width: 45%;
 padding-left: 5%;
 min-width: : 400px;
+margin-top: 100px;
 }
 
 #details h1 {
 	font-weight: bold;
-	font-size: 20px;
+	font-size: 32px;
 	text-align: center;
 	color: #635252
 }
@@ -259,7 +283,7 @@ footer p {
 	margin-bottom: 10px;
 	margin-top: 10px;
 	width: 280px;
-	background-color: #888;
+	background-color: #f6f6f6;
 
 }
 
@@ -278,7 +302,7 @@ footer p {
 	width: 90px;
 }
 .modal_form {
-	background-color: #888;
+	background-color: #fefefe;
 	border-radius: 5px;
 	margin: auto;
 	padding: 20px 40px;
@@ -356,7 +380,7 @@ button {
 }
 
 .voted_office {
-	width: 50%;
+	width: 100%;
 	float: left;
 	margin-right: 5px;
 	margin-bottom: 5px;
