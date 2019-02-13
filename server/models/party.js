@@ -50,6 +50,13 @@ class Parties {
 		}
 		
 	}
+
+	checkParty(data){
+		const parties = this.parties;
+		const party = parties.find(x => x.name == data.name || x.logoUrl == data.logoUrl);
+		return party;
+
+	}
 	
 }
 

@@ -19,13 +19,15 @@ class Offices {
 
 	getSpecificOffice(id) {
 		const offices = this.offices
-		const result = [];
-		for(let i = 0; i < offices.length; i ++){
-			if(offices[i].id == id){
-				result.push(offices[i]);
-			}
-		}
+		const result = offices.find(x => x.id == id);		
 		return result;
+	}
+
+	checkOffice(name){
+		const offices = this.offices;
+		const office = offices.find(x => x.name == name);
+		return office;
+
 	}
 
 }

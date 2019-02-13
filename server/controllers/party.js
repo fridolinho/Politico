@@ -12,6 +12,12 @@ class Party {
 							status: 400,
 							error: error.details[0].message
 						});
+
+		const party = Parties.checkParty(req.body);
+		if(party) return   res.status(409).send({
+								status: 409,
+								error: "party name or logoUrl exist already"
+							});
 		
 		const newParty = Parties.createParty(req.body);
 		res.status(201).send({

@@ -10,10 +10,16 @@ class Office {
 
 		const error = validateOffice(req.body); 
 
-		if(error) return res.status(400).send({
-			status : 400,
-			error: error.details[0].message
-		});
+		if(error) return    res.status(400).send({
+								status : 400,
+								error: error.details[0].message
+							});
+
+		const office = Offices.checkOffice(req.body.name);
+		if(office) return   res.status(409).send({
+								status: 409,
+								error: "office exist already"
+							});
 		
 		const newOffice = Offices.createOffice(req.body);
 		res.status(201).send({
@@ -37,14 +43,16 @@ class Office {
 
 	static async getOne(req, res){
 		const result = Offices.getSpecificOffice(req.params.id);
-		if(result.length == 0) return res.status(404).send({
+		if(!result) return res.status(404).send({
 										status: 404,
 										error: "political office not found"
 									});
-	res.status(200).send({
+
+
+		res.status(200).send({
 			status: 200,
 			data: result
-		})
+		});
 	}
 }
 

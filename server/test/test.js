@@ -30,8 +30,8 @@ describe('POST Political party', () => {
 		.post('/api/v1/parties')
 		.send({
 			name: "",
-			hqAddress: "Kacyiru",
-			logoUrl: "rpf.png"
+			hqAddress: "New YORK",
+			logoUrl: "democratic.png"
 		})
 		
 		.end((err, res) => {
@@ -45,12 +45,28 @@ describe('POST Political party', () => {
 		chai.request(server)
 		.post('/api/v1/parties')
 		.send({
+			hqAddress: "New YORK",
+			logoUrl: "democratic.png"
+		})
+		
+		.end((err, res) => {
+			res.should.have.status(400);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+
+	it('it should not POST a party with existing data', (done) => {
+		chai.request(server)
+		.post('/api/v1/parties')
+		.send({
+			name: "RPF",
 			hqAddress: "Kacyiru",
 			logoUrl: "rpf.png"
 		})
 		
 		.end((err, res) => {
-			res.should.have.status(400);
+			res.should.have.status(409);
 			res.body.should.be.a('object');
 			done();
 		});
@@ -182,7 +198,7 @@ describe('POST Political office', () => {
 		.post('/api/v1/offices')
 		.send({
 			type: "",
-			name: "Governor"
+			name: "Mayor"
 		})
 		
 		.end((err, res) => {
@@ -196,11 +212,26 @@ describe('POST Political office', () => {
 		chai.request(server)
 		.post('/api/v1/offices')
 		.send({
-			name: "Governor"
+			name: "Mayor"
 		})
 		
 		.end((err, res) => {
 			res.should.have.status(400);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+
+	it('it should not POST an office with existing data', (done) => {
+		chai.request(server)
+		.post('/api/v1/offices')
+		.send({
+			type: "Legislative",
+			name: "Governor"
+		})
+		
+		.end((err, res) => {
+			res.should.have.status(409);
 			res.body.should.be.a('object');
 			done();
 		});
