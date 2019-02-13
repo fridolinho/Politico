@@ -61,10 +61,20 @@ table {
 	margin: 150px auto;
 }
 
+
+
 #container2 {
 	background-color: #ebf0f5;
 	width: 90%;
 	margin: 50px auto;
+}
+
+#container2 .parties {
+	margin-top: 60px;
+}
+
+#container2 .offices {
+	margin-top: 60px;
 }
 
 #container3 {
