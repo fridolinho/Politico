@@ -39,8 +39,8 @@ class Parties {
 		for(let i = 0; i < parties.length; i ++){
 			if(parties[i].id == id){
 				if(data.name) parties[i].name = data.name;
-				if(data.hqaddress) parties[i].hqaddress = data.hqaddress;
-				if(data.logourl) parties[i].logourl = data.logourl;
+				if(data.hqAddress) parties[i].hqAddress = data.hqAddress;
+				if(data.logoUrl) parties[i].logoUrl = data.logoUrl;
 			}
 		}
 		
