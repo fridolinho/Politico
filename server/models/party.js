@@ -20,12 +20,7 @@ class Parties {
 
 	getSpecificParty(id) {
 		const parties = this.parties;
-		let result = [];
-		for(let i = 0; i < parties.length; i ++){
-			if(parties[i].id == id){
-				result.push(parties[i]);
-			}
-		}
+		const result = parties.find(x => x.id == id);		
 		return result;
 	}
 
@@ -44,11 +39,18 @@ class Parties {
 		for(let i = 0; i < parties.length; i ++){
 			if(parties[i].id == id){
 				if(data.name) parties[i].name = data.name;
-				if(data.hqaddress) parties[i].hqaddress = data.hqaddress;
-				if(data.logourl) parties[i].logourl = data.logourl;
+				if(data.hqAddress) parties[i].hqAddress = data.hqAddress;
+				if(data.logoUrl) parties[i].logoUrl = data.logoUrl;
 			}
 		}
 		
+	}
+
+	checkParty(data){
+		const parties = this.parties;
+		const party = parties.find(x => x.name == data.name || x.logoUrl == data.logoUrl);
+		return party;
+
 	}
 	
 }

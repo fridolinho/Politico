@@ -12,6 +12,12 @@ class Party {
 							status: 400,
 							error: error.details[0].message
 						});
+
+		const party = Parties.checkParty(req.body);
+		if(party) return   res.status(409).send({
+								status: 409,
+								error: "party name or logoUrl exist already"
+							});
 		
 		const newParty = Parties.createParty(req.body);
 		res.status(201).send({
@@ -35,7 +41,7 @@ class Party {
 
 	static async getOne(req, res){
 	const party = Parties.getSpecificParty(req.params.id);
-	if(party.length == 0) return res.status(404).send({
+	if(!party) return res.status(404).send({
 										status: 404,
 										error: "political party not found"
 									});
@@ -55,7 +61,7 @@ class Party {
 						});
 		const result = Parties.getSpecificParty(req.params.id);
 
-		if(result.length == 1){
+		if(result){
 			const part = Parties.updateParty(req.params.id, req.body);
 			return res.status(200).send({
 				status: 200,
@@ -73,7 +79,7 @@ class Party {
 	static async remove(req, res){
 		const result = Parties.getSpecificParty(req.params.id);
 
-		if(result.length == 1){
+		if(result){
 			const part = Parties.deleteParty(req.params.id)
 			return res.status(200).send({
 						status: 200,

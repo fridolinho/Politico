@@ -7,6 +7,18 @@ const should = chai.should();
 const expect = chai.expect();
 chai.use(chaiHttp);
 
+describe('the Homepage', () => {
+	it('it should open the homepage', (done) => {
+		chai.request(server)
+		.get('/')
+				
+		.end((err, res) => {
+			res.should.have.status(200);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+});
 
 describe('POST Political party', () => {
 	it('it should POST a party', (done) => {
@@ -30,8 +42,8 @@ describe('POST Political party', () => {
 		.post('/api/v1/parties')
 		.send({
 			name: "",
-			hqAddress: "Kacyiru",
-			logoUrl: "rpf.png"
+			hqAddress: "New YORK",
+			logoUrl: "democratic.png"
 		})
 		
 		.end((err, res) => {
@@ -45,12 +57,28 @@ describe('POST Political party', () => {
 		chai.request(server)
 		.post('/api/v1/parties')
 		.send({
+			hqAddress: "New YORK",
+			logoUrl: "democratic.png"
+		})
+		
+		.end((err, res) => {
+			res.should.have.status(400);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+
+	it('it should not POST a party with existing data', (done) => {
+		chai.request(server)
+		.post('/api/v1/parties')
+		.send({
+			name: "RPF",
 			hqAddress: "Kacyiru",
 			logoUrl: "rpf.png"
 		})
 		
 		.end((err, res) => {
-			res.should.have.status(400);
+			res.should.have.status(409);
 			res.body.should.be.a('object');
 			done();
 		});
@@ -101,7 +129,9 @@ describe('Patch specific Political party', () => {
 		chai.request(server)
 		.patch('/api/v1/parties/1')
 		.send({
-			name: "Republican"
+			name: "Republican",
+			hqAddress: "Intare ARENA",
+			logoUrl: "logo.png"
 		})		
 		.end((err, res) => {
 			res.should.have.status(200);
@@ -182,7 +212,7 @@ describe('POST Political office', () => {
 		.post('/api/v1/offices')
 		.send({
 			type: "",
-			name: "Governor"
+			name: "Mayor"
 		})
 		
 		.end((err, res) => {
@@ -196,11 +226,26 @@ describe('POST Political office', () => {
 		chai.request(server)
 		.post('/api/v1/offices')
 		.send({
-			name: "Governor"
+			name: "Mayor"
 		})
 		
 		.end((err, res) => {
 			res.should.have.status(400);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+
+	it('it should not POST an office with existing data', (done) => {
+		chai.request(server)
+		.post('/api/v1/offices')
+		.send({
+			type: "Legislative",
+			name: "Governor"
+		})
+		
+		.end((err, res) => {
+			res.should.have.status(409);
 			res.body.should.be.a('object');
 			done();
 		});
