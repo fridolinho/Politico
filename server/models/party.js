@@ -20,12 +20,7 @@ class Parties {
 
 	getSpecificParty(id) {
 		const parties = this.parties;
-		let result = [];
-		for(let i = 0; i < parties.length; i ++){
-			if(parties[i].id == id){
-				result.push(parties[i]);
-			}
-		}
+		const result = parties.find(x => x.id == id);		
 		return result;
 	}
 

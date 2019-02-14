@@ -7,6 +7,18 @@ const should = chai.should();
 const expect = chai.expect();
 chai.use(chaiHttp);
 
+describe('the Homepage', () => {
+	it('it should open the homepage', (done) => {
+		chai.request(server)
+		.get('/')
+				
+		.end((err, res) => {
+			res.should.have.status(200);
+			res.body.should.be.a('object');
+			done();
+		});
+	});
+});
 
 describe('POST Political party', () => {
 	it('it should POST a party', (done) => {
@@ -117,7 +129,9 @@ describe('Patch specific Political party', () => {
 		chai.request(server)
 		.patch('/api/v1/parties/1')
 		.send({
-			name: "Republican"
+			name: "Republican",
+			hqAddress: "Intare ARENA",
+			logoUrl: "logo.png"
 		})		
 		.end((err, res) => {
 			res.should.have.status(200);
