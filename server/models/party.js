@@ -26,24 +26,16 @@ class Parties {
 
 	deleteParty(id){
 		const parties = this.parties;
-		for(let i = 0; i < parties.length; i ++){
-			if(parties[i].id == id){
-				parties.splice(i, 1);
-			}
-		}
-		return parties;
+		const i = parties.findIndex(x => x.id == id);
+		parties.splice(i, 1);
 	}
+	
 	updateParty(id, data) {
 		const parties = this.parties;
-		console.log(data);
-		for(let i = 0; i < parties.length; i ++){
-			if(parties[i].id == id){
-				if(data.name) parties[i].name = data.name;
-				if(data.hqAddress) parties[i].hqAddress = data.hqAddress;
-				if(data.logoUrl) parties[i].logoUrl = data.logoUrl;
-			}
-		}
-		
+		const party = parties.find(x => x.id == id);
+				if(data.name) party.name = data.name;
+				if(data.hqAddress) party.hqAddress = data.hqAddress;
+				if(data.logoUrl) party.logoUrl = data.logoUrl;				
 	}
 
 	checkParty(data){
