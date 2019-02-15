@@ -133,6 +133,19 @@ describe('Patch specific Political party', () => {
       });
   });
 
+  it('it should not update specific political party with existing data', (done) => {
+    chai.request(server)
+      .patch('/api/v1/parties/1')
+      .send({
+        name: 'Republican',
+      })
+      .end((err, res) => {
+        res.should.have.status(409);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
   it('it should not found political party', (done) => {
     chai.request(server)
       .patch('/api/v1/parties/100')
