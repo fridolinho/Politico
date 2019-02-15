@@ -1,59 +1,59 @@
-import Joi from 'joi';
-import Offices from "../models/office";
+import Offices from '../models/office';
 import { validateOffice } from '../helpers/validations';
 
 class Office {
+  // create a political office
 
-	// create a political office
+  static async create(req, res) {
+    const error = validateOffice(req.body);
 
-	static async create(req, res) {
+    if (error) {
+      return res.status(400).send({
+        status: 400,
+        error: error.details[0].message,
+      });
+    }
 
-		const error = validateOffice(req.body); 
+    const office = Offices.checkOffice(req.body.name);
+    if (office) {
+      return res.status(409).send({
+        status: 409,
+        error: 'office exist already',
+      });
+    }
 
-		if(error) return    res.status(400).send({
-								status : 400,
-								error: error.details[0].message
-							});
+    const newOffice = Offices.createOffice(req.body);
+    return res.status(201).send({
+      status: 201,
+      data: newOffice,
+    });
+  }
 
-		const office = Offices.checkOffice(req.body.name);
-		if(office) return   res.status(409).send({
-								status: 409,
-								error: "office exist already"
-							});
-		
-		const newOffice = Offices.createOffice(req.body);
-		res.status(201).send({
-			status: 201,
-			data: newOffice
-		});
+  // get all political offices
 
-	}
+  static async getAll(req, res) {
+    const offices = Offices.getAllOffices();
+    res.status(200).send({
+      status: 200,
+      data: offices,
+    });
+  }
 
-	//get all political offices
+  // get specific political office
 
-	static async getAll(req, res){
-		const offices = Offices.getAllOffices();		
-		res.status(200).send({
-			status: 200,
-			data: offices
-		});
-	}
-
-	// get specific political office
-
-	static async getOne(req, res){
-		const result = Offices.getSpecificOffice(req.params.id);
-		if(!result) return res.status(404).send({
-										status: 404,
-										error: "political office not found"
-									});
-
-
-		res.status(200).send({
-			status: 200,
-			data: result
-		});
-	}
+  static async getOne(req, res) {
+    const result = Offices.getSpecificOffice(req.params.id);
+    if (!result) {
+      return res.status(404).send({
+        status: 404,
+        error: 'political office not found',
+      });
+    }
+    return res.status(200).send({
+      status: 200,
+      data: result,
+    });
+  }
 }
 
 export default Office;
