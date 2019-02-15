@@ -21,7 +21,6 @@
 				<a href="../index.html"><i class='fas fa-power-off'></i> Logout</a>			
 			</span>			
 		</span>
-
 	</header>
 	<div id="container2" class="sm-hide">
 		<div class="parties">
@@ -45,21 +44,20 @@
 					<button type="submit" name="add_meetup">Add</button>
 				</form>
 			</div>
-				<div class="party">
-						<img src="../images/republican.png" onclick="showMember()">
-						<h3>Republican Party</h3>
-					<span onclick="editParty()"><i class='far fa-edit' style="color: green; cursor: pointer;"></i></span>
-					<span onclick="deleteParty()"><i class='far fa-trash-alt' style="color: red; cursor: pointer;"></i></span><br><br>
-
-				</div>			
-				<div class="party">
-						<img src="../images/democratic.png" onclick="showMember()">
-						<h3>Democratic Party</h3>
-					<span onclick="editParty()"><i class='far fa-edit' style="color: green; cursor: pointer;"></i></span>
-					<span onclick="deleteParty()"><i class='far fa-trash-alt' style="color: red; cursor: pointer;"></i></span>
-				</div>
-				<div class="clear"></div>
-				<div class="add_party" id="edit_party">
+			<div class="party">
+					<img src="../images/republican.png" onclick="showMember()">
+					<h3>Republican Party</h3>
+				<span onclick="editParty()"><i class='far fa-edit' style="color: green; cursor: pointer;"></i></span>
+				<span onclick="deleteParty()"><i class='far fa-trash-alt' style="color: red; cursor: pointer;"></i></span><br><br>
+			</div>			
+			<div class="party">
+					<img src="../images/democratic.png" onclick="showMember()">
+					<h3>Democratic Party</h3>
+				<span onclick="editParty()"><i class='far fa-edit' style="color: green; cursor: pointer;"></i></span>
+				<span onclick="deleteParty()"><i class='far fa-trash-alt' style="color: red; cursor: pointer;"></i></span>
+			</div>
+			<div class="clear"></div>
+			<div class="add_party" id="edit_party">
 				<form method="post" action="#" enctype="multipart/form-data" class="modal_form">
 				    <span onclick = "closeModal()" class="close">&times;</span>
 					<h2>Edit Political Party</h2>
@@ -76,33 +74,33 @@
 					<button type="submit" name="add_meetup">Update</button>
 				</form>
 			</div>
-				<div id="members" class="members">
-					<h3>Republican party members</h3>
-					<div style="float: left">
-						
-						<ul>
-							<li>Erik P. Phillips</li>
-							<li>Ann D. Colegrove</li>
-							<li>Fawn G. Francis</li>
-							<li>James M. Douglas</li>
-							<li>Ralph P. Dorsey</li>
-						</ul>
-					</div>
-					<div style="float: right">
-						<p>5 members<br><br></p>
-						<button>Join</button>
-					</div>			
-					<div class="clear"></div>
+			<div id="members" class="members">
+				<h3>Republican party members</h3>
+				<div style="float: left">
+					
+					<ul>
+						<li>Erik P. Phillips</li>
+						<li>Ann D. Colegrove</li>
+						<li>Fawn G. Francis</li>
+						<li>James M. Douglas</li>
+						<li>Ralph P. Dorsey</li>
+					</ul>
 				</div>
+				<div style="float: right">
+					<p>5 members<br><br></p>
+					<button>Join</button>
+				</div>			
+				<div class="clear"></div>
+			</div>
 
-				<div id="confirm" class="add_party">
-					<div class="confirm">
-					    <span onclick = "closeModal()" class="close">&times;</span>
-						<h2>Are you sure?</h2>
-						<button>Cancel</button>
-						<button style="background-color: red">Yes</button>
-					</div>
-				</div>				
+			<div id="confirm" class="add_party">
+				<div class="confirm">
+				    <span onclick = "closeModal()" class="close">&times;</span>
+					<h2>Are you sure?</h2>
+					<button>Cancel</button>
+					<button style="background-color: red">Yes</button>
+				</div>
+			</div>				
 		</div>
 		<div class="offices">
 			<h2>Political offices available</h2>
