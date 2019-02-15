@@ -10,7 +10,7 @@ app.use('/api/v1/parties', party);
 app.use('/api/v1/offices', office);
 
 app.get('/', (req, res) => {
-	res.send('Welcome to Politico app');
+  res.send('Welcome to Politico app');
 });
 
 const port = process.env.PORT || 3000;
