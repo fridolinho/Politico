@@ -64,14 +64,23 @@ class Party {
         error: error.details[0].message,
       });
     }
+
     const result = Parties.getSpecificParty(req.params.id);
     if (result) {
+      const party = Parties.checkParty(req.body);
+      if (party) {
+        return res.status(409).send({
+          status: 409,
+          error: 'party name or logoUrl exist already',
+        });
+      }
       Parties.updateParty(req.params.id, req.body);
       return res.status(200).send({
         status: 200,
         data: result,
       });
     }
+
     return res.status(404).send({
       status: 404,
       error: 'political party not found',

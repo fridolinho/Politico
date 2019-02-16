@@ -6,8 +6,8 @@ class Offices {
   createOffice(data) {
     const newOffice = {
       id: this.offices.length + 1,
-      type: data.type,
-      name: data.name,
+      type: data.type.toLowerCase(),
+      name: data.name.toLowerCase(),
     };
     this.offices.push(newOffice);
     return newOffice;
@@ -18,12 +18,14 @@ class Offices {
   }
 
   getSpecificOffice(id) {
-    const result = this.offices.find(x => x.id == id);
+    const newId = parseInt(id, 10);
+    const result = this.offices.find(x => x.id === newId);
     return result;
   }
 
   checkOffice(name) {
-    const office = this.offices.find(x => x.name == name);
+    const newName = name.toLowerCase();
+    const office = this.offices.find(x => x.name === newName);
     return office;
   }
 }
