@@ -3,8 +3,8 @@ import chai from 'chai';
 import chaiHttp from 'chai-http';
 import server from '../index';
 
-chai.should();
-chai.expect();
+const { expect } = require('chai');
+
 chai.use(chaiHttp);
 
 describe('POST Political party', () => {
@@ -19,6 +19,9 @@ describe('POST Political party', () => {
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.be.a('object');
+        expect(res.body.data.name).to.equal('RPF');
+        expect(res.body.data.hqAddress).to.equal('Kacyiru');
+        expect(res.body.data.logoUrl).to.equal('rpf.png');
         done();
       });
   });

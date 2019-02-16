@@ -6,9 +6,9 @@ class Parties {
   createParty(data) {
     const newParty = {
       id: this.parties.length + 1,
-      name: data.name.toLowerCase(),
-      hqAddress: data.hqAddress.toLowerCase(),
-      logoUrl: data.logoUrl.toLowerCase(),
+      name: data.name,
+      hqAddress: data.hqAddress,
+      logoUrl: data.logoUrl,
     };
     this.parties.push(newParty);
     return newParty;
@@ -33,14 +33,14 @@ class Parties {
   updateParty(id, data) {
     const newId = parseInt(id, 10);
     const party = this.parties.find(x => x.id === newId);
-    if (data.name) party.name = data.name.toLowerCase();
-    if (data.hqAddress) party.hqAddress = data.hqAddress.toLowerCase();
-    if (data.logoUrl) party.logoUrl = data.logoUrl.toLowerCase();
+    if (data.name) party.name = data.name;
+    if (data.hqAddress) party.hqAddress = data.hqAddress;
+    if (data.logoUrl) party.logoUrl = data.logoUrl;
   }
 
   checkParty(data) {
     const newName = data.name.toLowerCase();
-    const party = this.parties.find(x => x.name === newName);
+    const party = this.parties.find(x => x.name.toLowerCase() === newName);
     return party;
   }
 }
