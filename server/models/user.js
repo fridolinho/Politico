@@ -9,8 +9,8 @@ class Users {
   }
 
   checkEmail(email) {
-    const user = this.users.find(x => x.email === email);
-    return user;
+    const currentUser = this.users.find(user => user.email === email);
+    return currentUser;
   }
 
   async addUser(data) {
