@@ -2,8 +2,8 @@ import Joi from 'joi';
 
 const JoiPhone = Joi.extend(require('joi-phone-number'));
 
-export const validateUser = (data) => {
-  const schema = {
+export const validateUser = (data, url) => {
+  let schema = {
     firstName: Joi.string().min(5).required().trim(),
     lastName: Joi.string().min(5).required().trim(),
     otherName: Joi.string().min(5).trim(),
@@ -13,6 +13,13 @@ export const validateUser = (data) => {
     password: Joi.string().min(4).required().trim(),
     passportUrl: Joi.string().min(5).required().trim(),
   };
+
+  if (url === '/login') {
+    schema = {
+      email: Joi.string().email().required().trim(),
+      password: Joi.string().min(4).required().trim(),
+    };
+  }
 
   const { error } = Joi.validate(data, schema);
   return error;

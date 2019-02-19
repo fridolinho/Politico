@@ -82,30 +82,29 @@ const createTables = () => {
      body TEXT NOT NULL
   )`;
 
-  const newUser = `INSERT INTO 
-  users(
-    "firstName",
-    "lastName",
-    "otherName",
-    email,
-    "phoneNumber",
-    password,
-    "passportUrl",
-    "isAdmin"
-    ) VALUES (
-    'fridolin',
-    'niyonsaba',
-    'fridz',
-    'fridolinho@gmail.com',
-    '0788232369',
-    '1234',
-    'passport.png',
-    true
-    )`;
-
-  const queries = `${users}; ${offices}; ${parties}; ${candidates}; ${votes}; ${petitions}; ${newUser}`;
+  const queries = `${users}; ${offices}; ${parties}; ${candidates}; ${votes}; ${petitions}`;
 
   pool.query(queries)
+    .then((res) => {
+      console.log(res);
+      pool.end();
+    })
+    .catch((err) => {
+      console.log(err);
+      pool.end();
+    });
+
+  pool.on('remove', () => {
+    console.log('client removed');
+    process.exit(0);
+  });
+};
+
+const truncateUsers = () => {
+  const truncate = `TRUNCATE users CASCADE;
+                    ALTER SEQUENCE users_id_seq RESTART WITH 1;
+                    `;
+  pool.query(truncate)
     .then((res) => {
       console.log(res);
       pool.end();
@@ -124,6 +123,7 @@ const createTables = () => {
 module.exports = {
   createTables,
   deleteTables,
+  truncateUsers,
 };
 
 require('make-runnable');
