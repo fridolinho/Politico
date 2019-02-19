@@ -8,7 +8,10 @@ class Offices {
     return this.office;
   }
 
-  getAllOffices() {
+  async getAllOffices() {
+    this.offices = [];
+    this.res = await pool.query('SELECT * FROM office');
+    this.offices.push(this.res.rows);
     return this.offices;
   }
 

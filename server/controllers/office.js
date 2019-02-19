@@ -32,7 +32,7 @@ class Office {
   // get all political offices
 
   static async getAll(req, res) {
-    const offices = Offices.getAllOffices();
+    const offices = await Offices.getAllOffices();
     res.status(200).send({
       status: 200,
       data: offices,
