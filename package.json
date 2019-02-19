@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "description": "Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.",
   "main": "index.js",
+  "engines": {
+    "node": "8.11.4",
+    "npm": "5.5.1"
+  },
   "scripts": {
     "start": "nodemon --exec babel-node --presets env server/index",
     "test": "set NODE_ENV=test & nyc --reporter=text --reporter=lcov mocha --require babel-register server/test --timeout 10000 --exit",
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "delete": "node --require babel-register server/models/db deleteTables",
-    "create": "node --require babel-register server/models/db createTables"
+    "create": "node --require babel-register server/models/db createTables",
+    "truncate": "node --require babel-register server/models/db truncateUsers"
   },
   "repository": {
     "type": "git",
