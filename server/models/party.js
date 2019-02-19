@@ -21,10 +21,13 @@ class Parties {
     return this.parties;
   }
 
-  getSpecificParty(id) {
-    const newId = parseInt(id, 10);
-    const result = this.parties.find(x => x.id === newId);
-    return result;
+  async getSpecificParty(id) {
+    this.party = [];
+    this.res = await pool.query('SELECT * FROM party WHERE id = $1', [id]);
+    if (this.res.rowCount === 1) {
+      this.party.push(this.res.rows[0]);
+    }
+    return this.party;
   }
 
   deleteParty(id) {

@@ -41,16 +41,16 @@ class Party {
   // Fetch a specific political party record
 
   static async getOne(req, res) {
-    const party = Parties.getSpecificParty(req.params.id);
-    if (!party) {
+    const result = await Parties.getSpecificParty(req.params.id);
+    if (result.length === 0) {
       return res.status(404).send({
         status: 404,
-        error: 'political party not found',
+        error: 'political office not found',
       });
     }
     return res.status(200).send({
       status: 200,
-      data: party,
+      data: result,
     });
   }
 
