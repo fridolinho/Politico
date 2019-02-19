@@ -2,15 +2,13 @@ import bcrypt from 'bcrypt';
 import pool from './connect';
 
 class Users {
-  constructor() {
-    pool.query('SELECT * FROM users', (error, response) => {
-      this.users = response.rows;
-    });
-  }
-
-  checkEmail(email) {
-    const currentUser = this.users.find(user => user.email === email);
-    return currentUser;
+  async checkEmail(email) {
+    this.user = [];
+    this.res = await pool.query('SELECT * FROM users WHERE email = $1', [email]);
+    if (this.res.rowCount > 0) {
+      this.user.push(this.res.rows[0]);
+    }
+    return this.user;
   }
 
   async addUser(data) {
@@ -37,7 +35,6 @@ class Users {
       )
       VALUES($1, $2, $3, $4, $5, $6, $7)
     `, this.newUser);
-    this.users.push(data);
   }
 }
 

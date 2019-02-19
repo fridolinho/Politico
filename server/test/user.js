@@ -18,13 +18,11 @@ describe('Register a user to the database', () => {
         email: 'niyofree@yahoo.fr',
         phoneNumber: '0788778495',
         passportUrl: 'passport2.png',
-        password: '1235',
+        password: '1234',
       })
-
       .end((err, res) => {
         res.should.have.status(201);
         res.body.should.be.a('object');
-        console.log(err);
         done();
       });
   });
@@ -34,17 +32,16 @@ describe('Register a user to the database', () => {
       .post('/api/v1/auth/signup')
       .send({
         firstName: '',
-        lastName: 'Arsene',
+        lastName: 'fridolin',
         otherName: 'wenger',
-        email: 'niyofree@yahoo.fr',
-        phoneNumber: '0788778495',
+        email: 'fridolinho@gmail.com',
+        phoneNumber: '0788232369',
         passportUrl: 'passport2.png',
         password: '1235',
       })
       .end((err, res) => {
         res.should.have.status(400);
         res.body.should.be.a('object');
-        console.log(err);
         done();
       });
   });
@@ -65,7 +62,52 @@ describe('Register a user to the database', () => {
       .end((err, res) => {
         res.should.have.status(409);
         res.body.should.be.a('object');
-        console.log(err);
+        done();
+      });
+  });
+});
+
+describe('Login a user to the database', () => {
+  it('it should login the user', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'fridolinho@gmail.com',
+        password: '1234',
+      })
+
+      .end((err, res) => {
+        res.should.have.status(200);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+
+  it('it should not login the user with wrong email', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'fridolinho12@gmail.com',
+        password: '1234',
+      })
+
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
+        done();
+      });
+  });
+  it('it should not login the user with wrong password', (done) => {
+    chai.request(server)
+      .post('/api/v1/auth/login')
+      .send({
+        email: 'fridolinho12@gmail.com',
+        password: '123423',
+      })
+
+      .end((err, res) => {
+        res.should.have.status(404);
+        res.body.should.be.a('object');
         done();
       });
   });

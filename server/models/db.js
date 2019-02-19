@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import pool from './connect';
 
 const deleteTables = () => {
@@ -82,28 +83,7 @@ const createTables = () => {
      body TEXT NOT NULL
   )`;
 
-  const newUser = `INSERT INTO 
-  users(
-    "firstName",
-    "lastName",
-    "otherName",
-    email,
-    "phoneNumber",
-    password,
-    "passportUrl",
-    "isAdmin"
-    ) VALUES (
-    'fridolin',
-    'niyonsaba',
-    'fridz',
-    'fridolinho@gmail.com',
-    '0788232369',
-    '1234',
-    'passport.png',
-    true
-    )`;
-
-  const queries = `${users}; ${offices}; ${parties}; ${candidates}; ${votes}; ${petitions}; ${newUser}`;
+  const queries = `${users}; ${offices}; ${parties}; ${candidates}; ${votes}; ${petitions}`;
 
   pool.query(queries)
     .then((res) => {
