@@ -15,10 +15,13 @@ class Offices {
     return this.offices;
   }
 
-  getSpecificOffice(id) {
-    const newId = parseInt(id, 10);
-    const result = this.offices.find(x => x.id === newId);
-    return result;
+  async getSpecificOffice(id) {
+    this.office = [];
+    this.res = await pool.query('SELECT * FROM office WHERE id = $1', [id]);
+    if (this.res.rowCount === 1) {
+      this.office.push(this.res.rows[0]);
+    }
+    return this.office;
   }
 
   async checkOffice(name) {

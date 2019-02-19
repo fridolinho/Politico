@@ -42,8 +42,9 @@ class Office {
   // get specific political office
 
   static async getOne(req, res) {
-    const result = Offices.getSpecificOffice(req.params.id);
-    if (!result) {
+    const result = await Offices.getSpecificOffice(req.params.id);
+    console.log(result);
+    if (result.length === 0) {
       return res.status(404).send({
         status: 404,
         error: 'political office not found',
