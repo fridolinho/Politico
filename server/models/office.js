@@ -1,16 +1,11 @@
-class Offices {
-  constructor() {
-    this.offices = [];
-  }
+import pool from './connect';
 
-  createOffice(data) {
-    const newOffice = {
-      id: this.offices.length + 1,
-      type: data.type.toLowerCase(),
-      name: data.name.toLowerCase(),
-    };
-    this.offices.push(newOffice);
-    return newOffice;
+class Offices {
+  async createOffice(data) {
+    this.office = [];
+    this.res = await pool.query('INSERT INTO office (type, name) VALUES($1, $2) RETURNING *', [data.type, data.name]);
+    this.office.push(this.res.rows[0]);
+    return this.office;
   }
 
   getAllOffices() {
@@ -23,10 +18,13 @@ class Offices {
     return result;
   }
 
-  checkOffice(name) {
-    const newName = name.toLowerCase();
-    const office = this.offices.find(x => x.name === newName);
-    return office;
+  async checkOffice(name) {
+    this.office = [];
+    this.res = await pool.query('SELECT * FROM office WHERE name = $1', [name]);
+    if (this.res.rowCount > 0) {
+      this.office.push(this.res.rows[0]);
+    }
+    return this.office;
   }
 }
 export default new Offices();

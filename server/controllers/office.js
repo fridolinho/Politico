@@ -14,15 +14,15 @@ class Office {
       });
     }
 
-    const office = Offices.checkOffice(req.body.name);
-    if (office) {
+    const office = await Offices.checkOffice(req.body.name);
+    if (office.length !== 0) {
       return res.status(409).send({
         status: 409,
         error: 'office exist already',
       });
     }
 
-    const newOffice = Offices.createOffice(req.body);
+    const newOffice = await Offices.createOffice(req.body);
     return res.status(201).send({
       status: 201,
       data: newOffice,
