@@ -14,7 +14,10 @@ class Parties {
     return this.party;
   }
 
-  getAllParties() {
+  async getAllParties() {
+    this.parties = [];
+    this.res = await pool.query('SELECT * FROM party');
+    this.parties.push(this.res.rows);
     return this.parties;
   }
 

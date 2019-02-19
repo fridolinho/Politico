@@ -31,7 +31,7 @@ class Party {
   // get all political parties
 
   static async getAll(req, res) {
-    const parties = Parties.getAllParties();
+    const parties = await Parties.getAllParties();
     res.status(200).send({
       status: 200,
       data: parties,
