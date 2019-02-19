@@ -14,14 +14,14 @@ class Party {
       });
     }
 
-    const party = Parties.checkParty(req.body);
-    if (party) {
+    const party = await Parties.checkParty(req.body.name);
+    if (party.length !== 0) {
       return res.status(409).send({
         status: 409,
-        error: 'party name or logoUrl exist already',
+        error: 'party name has been taken',
       });
     }
-    const newParty = Parties.createParty(req.body);
+    const newParty = await Parties.createParty(req.body);
     return res.status(201).send({
       status: 201,
       data: newParty,
