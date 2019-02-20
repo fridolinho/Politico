@@ -17,7 +17,7 @@ class Office {
     }
 
     const office = await Offices.checkOffice(req.body.name);
-    if (office.length !== 0) {
+    if (office) {
       return res.status(409).send({
         status: 409,
         error: 'office exist already',
