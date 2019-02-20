@@ -1,6 +1,7 @@
 import Offices from '../models/office';
 import Parties from '../models/party';
 import Users from '../models/user';
+import Elections from '../models/election';
 import { validateCandidate, validateOffice } from '../helpers/validations';
 
 class Office {
@@ -17,7 +18,7 @@ class Office {
     }
 
     const office = await Offices.checkOffice(req.body.name);
-    if (office) {
+    if (office.length === 1) {
       return res.status(409).send({
         status: 409,
         error: 'office exist already',
@@ -100,7 +101,7 @@ class Office {
       });
     }
 
-    const newCandidate = await Offices.addCandidate(req.body, req.params.id);
+    const newCandidate = await Elections.addCandidate(req.body, req.params.id);
     return res.status(200).send({
       status: 200,
       data: newCandidate,

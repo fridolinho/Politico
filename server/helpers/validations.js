@@ -63,3 +63,14 @@ export const validateCandidate = (data) => {
   const { error } = Joi.validate(data, schema);
   return error;
 };
+
+export const validateVote = (data) => {
+  const schema = {
+    office: Joi.number().integer().required(),
+    candidate: Joi.number().integer().required(),
+    voter: Joi.number().integer().required(),
+  };
+
+  const { error } = Joi.validate(data, schema);
+  return error;
+};

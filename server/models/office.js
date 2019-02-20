@@ -21,19 +21,21 @@ class Offices {
   }
 
   async checkOffice(name) {
-    this.res = await pool.query('SELECT * FROM office WHERE name = $1', [name]);
-    if (this.res.rowCount > 0) {
-      this.result = [this.res.rows[0]];
+    this.result = [];
+    const res = await pool.query('SELECT * FROM office WHERE name = $1', [name]);
+    if (res.rowCount === 1) {
+      this.result.push(res.rows[0]);
     }
     return this.result;
   }
 
   async checkCandidate(candidate) {
-    this.res = await pool.query('SELECT * FROM candidate WHERE candidate = $1', [candidate]);
-    if (this.res.rowCount > 0) {
-      this.candidate = [this.res.rows[0]];
+    this.result = [];
+    const res = await pool.query('SELECT * FROM candidate WHERE candidate = $1', [candidate]);
+    if (res.rowCount > 0) {
+      this.result.push(res.rows[0]);
     }
-    return this.candidate;
+    return this.result;
   }
 
   async addCandidate(data, id) {
@@ -42,9 +44,8 @@ class Offices {
       data.party,
       data.candidate,
     ];
-    this.res = await pool.query('INSERT INTO candidate (office, party, candidate) VALUES ($1, $2, $3) RETURNING *', this.candidate);
-    return [this.res.rows[0]];
+    const res = await pool.query('INSERT INTO candidate (office, party, candidate) VALUES ($1, $2, $3) RETURNING *', this.candidate);
+    return [res.rows[0]];
   }
-  
 }
 export default new Offices();

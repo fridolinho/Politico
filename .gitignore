@@ -1,3 +1,4 @@
+/server/models/connect.js
 /.env
 /node_modules
 /.nyc_output/
