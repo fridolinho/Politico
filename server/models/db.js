@@ -44,8 +44,8 @@ const createTables = () => {
     party(
      id SERIAL PRIMARY KEY,
      name VARCHAR(50) NOT NULL,
-     hqaddress VARCHAR(50) NOT NULL,
-     logourl VARCHAR(50) NOT NULL
+     "hqAddress" VARCHAR(50) NOT NULL,
+     "logoUrl" VARCHAR(50) NOT NULL
     )`;
   const offices = `CREATE TABLE IF NOT EXISTS
     office(
@@ -67,8 +67,8 @@ const createTables = () => {
   const votes = `CREATE TABLE IF NOT EXISTS
   vote(
      id SERIAL PRIMARY KEY,
-     createdon TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     createdby INT NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+     "createdOn" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     "createdBy" INT NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
      office INT NOT NULL REFERENCES office(id) ON DELETE CASCADE ON UPDATE CASCADE,
      candidate INT NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
   )`;
@@ -76,8 +76,8 @@ const createTables = () => {
   const petitions = `CREATE TABLE IF NOT EXISTS
   petition(
      id SERIAL PRIMARY KEY,
-     createdon TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-     createdby INT NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
+     "createdOn" TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+     "createdBy" INT NOT NULL REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE,
      office INT NOT NULL REFERENCES office(id) ON DELETE CASCADE ON UPDATE CASCADE,
      body TEXT NOT NULL
   )`;

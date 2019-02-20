@@ -65,16 +65,17 @@ class Party {
       });
     }
 
-    const result = Parties.getSpecificParty(req.params.id);
-    if (result) {
-      const party = Parties.checkParty(req.body);
-      if (party) {
+    const result = await Parties.getSpecificParty(req.params.id);
+    if (result.length !== 0) {
+      const party = await Parties.checkParty(req.body.name);
+      console.log(party);
+      if (party.length !== 0) {
         return res.status(409).send({
           status: 409,
           error: 'party name or logoUrl exist already',
         });
       }
-      Parties.updateParty(req.params.id, req.body);
+      Parties.updateParty(req.params.id, req.body, result);
       return res.status(200).send({
         status: 200,
         data: result,
@@ -90,10 +91,11 @@ class Party {
   // delete a particular political party
 
   static async remove(req, res) {
-    const result = Parties.getSpecificParty(req.params.id);
+    const result = await Parties.getSpecificParty(req.params.id);
 
-    if (result) {
-      Parties.deleteParty(req.params.id);
+    if (result.length !== 0) {
+      console.log(result);
+      await Parties.deleteParty(req.params.id);
       return res.status(200).send({
         status: 200,
         message: 'Political party deleted',
