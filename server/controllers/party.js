@@ -68,17 +68,16 @@ class Party {
     const result = await Parties.getSpecificParty(req.params.id);
     if (result.length !== 0) {
       const party = await Parties.checkParty(req.body.name);
-      console.log(party);
       if (party.length !== 0) {
         return res.status(409).send({
           status: 409,
           error: 'party name or logoUrl exist already',
         });
       }
-      Parties.updateParty(req.params.id, req.body, result);
+      const newParty = await Parties.updateParty(req.params.id, req.body, result);
       return res.status(200).send({
         status: 200,
-        data: result,
+        data: newParty,
       });
     }
 
@@ -94,7 +93,6 @@ class Party {
     const result = await Parties.getSpecificParty(req.params.id);
 
     if (result.length !== 0) {
-      console.log(result);
       await Parties.deleteParty(req.params.id);
       return res.status(200).send({
         status: 200,

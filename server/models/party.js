@@ -35,10 +35,10 @@ class Parties {
     await pool.query('DELETE FROM party WHERE id = $1', [this.newId]);
   }
 
-  updateParty(id, data, party) {
-    const newName = data.name || party.name;
-    const newHqAddress = data.hqAddress || party.hqAddress;
-    const newLogoUrl = data.logoUrl || party.logoUrl;
+  async updateParty(id, data, party) {
+    const newName = data.name || party[0].name;
+    const newHqAddress = data.hqAddress || party[0].hqAddress;
+    const newLogoUrl = data.logoUrl || party[0].logoUrl;
     this.newId = parseInt(id, 10);
     this.newData = [
       newName,
@@ -46,8 +46,10 @@ class Parties {
       newLogoUrl,
       this.newId,
     ];
-    console.log(this.newData);
-    pool.query('UPDATE party SET name = $1, "hqAddress" = $2, "logoUrl" = $3 WHERE id =$4', this.newData);
+    this.party = [];
+    this.res = await pool.query('UPDATE party SET name = $1, "hqAddress" = $2, "logoUrl" = $3 WHERE id = $4 RETURNING *', this.newData);
+    this.party.push(this.res.rows[0]);
+    return this.party;
   }
 
   async checkParty(name) {
