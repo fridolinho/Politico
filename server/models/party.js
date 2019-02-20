@@ -7,18 +7,14 @@ class Parties {
       data.hqAddress,
       data.logoUrl,
     ];
-
-    this.party = [];
+    
     this.res = await pool.query('INSERT INTO party (name, "hqAddress", "logoUrl") VALUES($1, $2, $3) RETURNING *', this.newParty);
-    this.party.push(this.res.rows[0]);
-    return this.party;
+    return [this.res.rows[0]];
   }
 
   async getAllParties() {
-    this.parties = [];
     this.res = await pool.query('SELECT * FROM party');
-    this.parties.push(this.res.rows);
-    return this.parties;
+    return this.res.rows;
   }
 
   async getSpecificParty(id) {
@@ -46,17 +42,14 @@ class Parties {
       newLogoUrl,
       this.newId,
     ];
-    this.party = [];
     this.res = await pool.query('UPDATE party SET name = $1, "hqAddress" = $2, "logoUrl" = $3 WHERE id = $4 RETURNING *', this.newData);
-    this.party.push(this.res.rows[0]);
-    return this.party;
+    return [this.res.rows[0]];
   }
 
   async checkParty(name) {
-    this.party = [];
     this.res = await pool.query('SELECT * FROM party WHERE name = $1', [name]);
     if (this.res.rowCount > 0) {
-      this.party.push(this.res.rows[0]);
+      this.party = [this.res.rows[0]];
     }
     return this.party;
   }
