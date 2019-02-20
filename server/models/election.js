@@ -37,6 +37,13 @@ class Elections {
     if (this.res.rowCount !== 0) result.push(this.res.rows[0]);
     return result;
   }
+
+  async getResults(id) {
+    this.id = id;
+
+    const res = await pool.query('SELECT * FROM candidate WHERE office = $1 ORDER BY votes DESC', [this.id]);
+    return res.rows;
+  }
 }
 
 export default new Elections();
