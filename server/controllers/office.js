@@ -1,3 +1,4 @@
+import _ from 'underscore';
 import Offices from '../models/office';
 import Parties from '../models/party';
 import Users from '../models/user';
@@ -105,6 +106,18 @@ class Office {
     return res.status(200).send({
       status: 200,
       data: newCandidate,
+    });
+  }
+
+  static async voteResult(req, res) {
+    const result = await Elections.getResults(req.params.id);
+    const newRes = [];
+    for (let i = 0; i < result.length; i++) {
+      newRes.push(_.omit(result[i], 'party', 'id'));
+    }
+    return res.status(200).send({
+      status: 200,
+      data: newRes,
     });
   }
 }

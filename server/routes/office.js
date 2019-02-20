@@ -1,11 +1,13 @@
 import express from 'express';
+import auth from '../middleware/auth';
 import Office from '../controllers/office';
 
 const router = express.Router();
 
-router.post('/', Office.create);
-router.get('/', Office.getAll);
-router.get('/:id', Office.getOne);
-router.post('/:id/register', Office.register);
+router.post('/', auth, Office.create);
+router.get('/', auth, Office.getAll);
+router.get('/:id', auth, Office.getOne);
+router.post('/:id/register', auth, Office.register);
+router.get('/:id/result', auth, Office.voteResult);
 
 export default router;
