@@ -7,7 +7,7 @@ class Parties {
       data.hqAddress,
       data.logoUrl,
     ];
-    
+
     this.res = await pool.query('INSERT INTO party (name, "hqAddress", "logoUrl") VALUES($1, $2, $3) RETURNING *', this.newParty);
     return [this.res.rows[0]];
   }
@@ -47,9 +47,10 @@ class Parties {
   }
 
   async checkParty(name) {
-    this.res = await pool.query('SELECT * FROM party WHERE name = $1', [name]);
-    if (this.res.rowCount > 0) {
-      this.party = [this.res.rows[0]];
+    this.party = [];
+    const res = await pool.query('SELECT * FROM party WHERE name = $1', [name]);
+    if (res.rowCount > 0) {
+      this.party.push(res.rows[0]);
     }
     return this.party;
   }
