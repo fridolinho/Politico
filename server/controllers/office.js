@@ -1,5 +1,7 @@
 import Offices from '../models/office';
-import { validateOffice } from '../helpers/validations';
+import Parties from '../models/party';
+import Users from '../models/user';
+import { validateCandidate, validateOffice } from '../helpers/validations';
 
 class Office {
   // create a political office
@@ -52,6 +54,56 @@ class Office {
     return res.status(200).send({
       status: 200,
       data: result,
+    });
+  }
+
+  // register a candidate/ to run for a specific political office
+
+  static async register(req, res) {
+    const error = validateCandidate(req.body);
+
+    if (error) {
+      return res.status(400).send({
+        status: 400,
+        error: error.details[0].message,
+      });
+    }
+
+    const candidate = await Offices.checkCandidate(req.body.candidate);
+    if (candidate.length !== 0) {
+      return res.status(409).send({
+        status: 409,
+        error: 'you have already registered as a candidate',
+      });
+    }
+
+    const party = await Parties.getSpecificParty(req.body.party);
+    if (party.length !== 1) {
+      return res.status(404).send({
+        status: 404,
+        error: 'political party not found',
+      });
+    }
+    const office = await Offices.getSpecificOffice(req.params.id);
+    if (office.length !== 1) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Political office not found',
+      });
+    }
+
+    const user = await Users.getSpecificUser(req.body.candidate);
+    if (user.length !== 1) {
+      return res.status(404).send({
+        status: 404,
+        error: 'User not found',
+      });
+    }
+
+    const newCandidate = await Offices.addCandidate(req.body, req.params.id);
+    return res.status(200).send({
+      status: 200,
+      data: newCandidate,
     });
   }
 }

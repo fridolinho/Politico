@@ -23,14 +23,14 @@ class User {
       });
     }
 
-    Users.addUser(req.body);
-    const newUser = _.omit(req.body, 'password');
+    const addedUser = await Users.addUser(req.body);
+    const newUser = _.omit(addedUser, 'password');
     const token = jwt.sign({ newUser }, process.env.PRIVATE_KEY, { expiresIn: 360 });
     return res.status(201).send({
       status: 201,
       data: [{
         token,
-        user: newUser,
+        user: newUser[0],
       }],
     });
   }

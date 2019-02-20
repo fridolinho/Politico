@@ -53,3 +53,13 @@ export const validateParty = (data, method) => {
   const { error } = Joi.validate(data, schema);
   return error;
 };
+
+export const validateCandidate = (data) => {
+  const schema = {
+    party: Joi.number().integer().required(),
+    candidate: Joi.number().integer().required(),
+  };
+
+  const { error } = Joi.validate(data, schema);
+  return error;
+};

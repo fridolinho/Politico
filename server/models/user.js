@@ -11,6 +11,15 @@ class Users {
     return this.user;
   }
 
+  async getSpecificUser(id) {
+    this.user = [];
+    this.res = await pool.query('SELECT * FROM users WHERE id = $1', [id]);
+    if (this.res.rowCount > 0) {
+      this.user.push(this.res.rows[0]);
+    }
+    return this.user;
+  }
+
   async addUser(data) {
     this.salt = await bcrypt.genSalt(8);
     this.password = await bcrypt.hash(data.password, this.salt);
@@ -23,7 +32,8 @@ class Users {
       this.password,
       data.passportUrl,
     ];
-    pool.query(`INSERT INTO
+    this.user = [];
+    this.res = await pool.query(`INSERT INTO
       users(
       "firstName",
       "lastName",
@@ -33,8 +43,10 @@ class Users {
       password,
       "passportUrl"
       )
-      VALUES($1, $2, $3, $4, $5, $6, $7)
+      VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *
     `, this.newUser);
+    this.user.push(this.res.rows[0]);
+    return this.user;
   }
 }
 
