@@ -1,32 +1,36 @@
+import pool from './connect';
+
 class Offices {
-  constructor() {
+  async createOffice(data) {
+    this.office = [];
+    this.res = await pool.query('INSERT INTO office (type, name) VALUES($1, $2) RETURNING *', [data.type, data.name]);
+    this.office.push(this.res.rows[0]);
+    return this.office;
+  }
+
+  async getAllOffices() {
     this.offices = [];
-  }
-
-  createOffice(data) {
-    const newOffice = {
-      id: this.offices.length + 1,
-      type: data.type.toLowerCase(),
-      name: data.name.toLowerCase(),
-    };
-    this.offices.push(newOffice);
-    return newOffice;
-  }
-
-  getAllOffices() {
+    this.res = await pool.query('SELECT * FROM office');
+    this.offices.push(this.res.rows);
     return this.offices;
   }
 
-  getSpecificOffice(id) {
-    const newId = parseInt(id, 10);
-    const result = this.offices.find(x => x.id === newId);
-    return result;
+  async getSpecificOffice(id) {
+    this.office = [];
+    this.res = await pool.query('SELECT * FROM office WHERE id = $1', [id]);
+    if (this.res.rowCount === 1) {
+      this.office.push(this.res.rows[0]);
+    }
+    return this.office;
   }
 
-  checkOffice(name) {
-    const newName = name.toLowerCase();
-    const office = this.offices.find(x => x.name === newName);
-    return office;
+  async checkOffice(name) {
+    this.office = [];
+    this.res = await pool.query('SELECT * FROM office WHERE name = $1', [name]);
+    if (this.res.rowCount > 0) {
+      this.office.push(this.res.rows[0]);
+    }
+    return this.office;
   }
 }
 export default new Offices();

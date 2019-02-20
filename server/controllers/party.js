@@ -14,14 +14,14 @@ class Party {
       });
     }
 
-    const party = Parties.checkParty(req.body);
-    if (party) {
+    const party = await Parties.checkParty(req.body.name);
+    if (party.length !== 0) {
       return res.status(409).send({
         status: 409,
-        error: 'party name or logoUrl exist already',
+        error: 'party name has been taken',
       });
     }
-    const newParty = Parties.createParty(req.body);
+    const newParty = await Parties.createParty(req.body);
     return res.status(201).send({
       status: 201,
       data: newParty,
@@ -31,7 +31,7 @@ class Party {
   // get all political parties
 
   static async getAll(req, res) {
-    const parties = Parties.getAllParties();
+    const parties = await Parties.getAllParties();
     res.status(200).send({
       status: 200,
       data: parties,
@@ -41,16 +41,16 @@ class Party {
   // Fetch a specific political party record
 
   static async getOne(req, res) {
-    const party = Parties.getSpecificParty(req.params.id);
-    if (!party) {
+    const result = await Parties.getSpecificParty(req.params.id);
+    if (result.length === 0) {
       return res.status(404).send({
         status: 404,
-        error: 'political party not found',
+        error: 'political office not found',
       });
     }
     return res.status(200).send({
       status: 200,
-      data: party,
+      data: result,
     });
   }
 
@@ -65,19 +65,19 @@ class Party {
       });
     }
 
-    const result = Parties.getSpecificParty(req.params.id);
-    if (result) {
-      const party = Parties.checkParty(req.body);
-      if (party) {
+    const result = await Parties.getSpecificParty(req.params.id);
+    if (result.length !== 0) {
+      const party = await Parties.checkParty(req.body.name);
+      if (party.length !== 0) {
         return res.status(409).send({
           status: 409,
           error: 'party name or logoUrl exist already',
         });
       }
-      Parties.updateParty(req.params.id, req.body);
+      const newParty = await Parties.updateParty(req.params.id, req.body, result);
       return res.status(200).send({
         status: 200,
-        data: result,
+        data: newParty,
       });
     }
 
@@ -90,10 +90,10 @@ class Party {
   // delete a particular political party
 
   static async remove(req, res) {
-    const result = Parties.getSpecificParty(req.params.id);
+    const result = await Parties.getSpecificParty(req.params.id);
 
-    if (result) {
-      Parties.deleteParty(req.params.id);
+    if (result.length !== 0) {
+      await Parties.deleteParty(req.params.id);
       return res.status(200).send({
         status: 200,
         message: 'Political party deleted',

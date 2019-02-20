@@ -1,47 +1,64 @@
+import pool from './connect';
+
 class Parties {
-  constructor() {
+  async createParty(data) {
+    this.newParty = [
+      data.name,
+      data.hqAddress,
+      data.logoUrl,
+    ];
+
+    this.party = [];
+    this.res = await pool.query('INSERT INTO party (name, "hqAddress", "logoUrl") VALUES($1, $2, $3) RETURNING *', this.newParty);
+    this.party.push(this.res.rows[0]);
+    return this.party;
+  }
+
+  async getAllParties() {
     this.parties = [];
-  }
-
-  createParty(data) {
-    const newParty = {
-      id: this.parties.length + 1,
-      name: data.name,
-      hqAddress: data.hqAddress,
-      logoUrl: data.logoUrl,
-    };
-    this.parties.push(newParty);
-    return newParty;
-  }
-
-  getAllParties() {
+    this.res = await pool.query('SELECT * FROM party');
+    this.parties.push(this.res.rows);
     return this.parties;
   }
 
-  getSpecificParty(id) {
-    const newId = parseInt(id, 10);
-    const result = this.parties.find(x => x.id === newId);
-    return result;
+  async getSpecificParty(id) {
+    this.party = [];
+    this.res = await pool.query('SELECT * FROM party WHERE id = $1', [id]);
+    if (this.res.rowCount === 1) {
+      this.party.push(this.res.rows[0]);
+    }
+    return this.party;
   }
 
-  deleteParty(id) {
-    const newId = parseInt(id, 10);
-    const i = this.parties.findIndex(x => x.id === newId);
-    this.parties.splice(i, 1);
+  async deleteParty(id) {
+    this.newId = parseInt(id, 10);
+    await pool.query('DELETE FROM party WHERE id = $1', [this.newId]);
   }
 
-  updateParty(id, data) {
-    const newId = parseInt(id, 10);
-    const party = this.parties.find(x => x.id === newId);
-    if (data.name) party.name = data.name;
-    if (data.hqAddress) party.hqAddress = data.hqAddress;
-    if (data.logoUrl) party.logoUrl = data.logoUrl;
+  async updateParty(id, data, party) {
+    const newName = data.name || party[0].name;
+    const newHqAddress = data.hqAddress || party[0].hqAddress;
+    const newLogoUrl = data.logoUrl || party[0].logoUrl;
+    this.newId = parseInt(id, 10);
+    this.newData = [
+      newName,
+      newHqAddress,
+      newLogoUrl,
+      this.newId,
+    ];
+    this.party = [];
+    this.res = await pool.query('UPDATE party SET name = $1, "hqAddress" = $2, "logoUrl" = $3 WHERE id = $4 RETURNING *', this.newData);
+    this.party.push(this.res.rows[0]);
+    return this.party;
   }
 
-  checkParty(data) {
-    const newName = data.name.toLowerCase();
-    const party = this.parties.find(x => x.name.toLowerCase() === newName);
-    return party;
+  async checkParty(name) {
+    this.party = [];
+    this.res = await pool.query('SELECT * FROM party WHERE name = $1', [name]);
+    if (this.res.rowCount > 0) {
+      this.party.push(this.res.rows[0]);
+    }
+    return this.party;
   }
 }
 export default new Parties();

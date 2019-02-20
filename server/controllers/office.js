@@ -14,15 +14,15 @@ class Office {
       });
     }
 
-    const office = Offices.checkOffice(req.body.name);
-    if (office) {
+    const office = await Offices.checkOffice(req.body.name);
+    if (office.length !== 0) {
       return res.status(409).send({
         status: 409,
         error: 'office exist already',
       });
     }
 
-    const newOffice = Offices.createOffice(req.body);
+    const newOffice = await Offices.createOffice(req.body);
     return res.status(201).send({
       status: 201,
       data: newOffice,
@@ -32,7 +32,7 @@ class Office {
   // get all political offices
 
   static async getAll(req, res) {
-    const offices = Offices.getAllOffices();
+    const offices = await Offices.getAllOffices();
     res.status(200).send({
       status: 200,
       data: offices,
@@ -42,8 +42,8 @@ class Office {
   // get specific political office
 
   static async getOne(req, res) {
-    const result = Offices.getSpecificOffice(req.params.id);
-    if (!result) {
+    const result = await Offices.getSpecificOffice(req.params.id);
+    if (result.length === 0) {
       return res.status(404).send({
         status: 404,
         error: 'political office not found',
