@@ -74,4 +74,135 @@ describe('Office', () => {
         });
     });
   });
+
+  describe('Register candidate for Political office', () => {
+    it('it should register a party for use to register candidate', (done) => {
+      chai.request(server)
+        .post('/api/v1/parties')
+        .set('x-http-token', token)
+        .send({
+          name: 'RPF',
+          hqAddress: 'Kacyiru',
+          logoUrl: 'rpf.png',
+        })
+        .end((err, res) => {
+          res.should.have.status(201);
+          res.body.should.be.a('object');
+          console.log(res.body);
+          done();
+        });
+    });
+    it('it should register candidate with string instead of int', (done) => {
+      chai.request(server)
+        .post('/api/v1/offices/1/register')
+        .set('x-http-token', token)
+        .send({
+          party: 'pr',
+          user: 1,
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('it should register candidate with missing field', (done) => {
+      chai.request(server)
+        .post('/api/v1/offices/1/register')
+        .set('x-http-token', token)
+        .send({
+          user: 1,
+        })
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('it should register candidate to a non existing party', (done) => {
+      chai.request(server)
+        .post('/api/v1/offices/1/register')
+        .set('x-http-token', token)
+        .send({
+          party: 1,
+          user: 12,
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('it should register a non existing user', (done) => {
+      chai.request(server)
+        .post('/api/v1/offices/1/register')
+        .set('x-http-token', token)
+        .send({
+          party: 12,
+          user: 1,
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+    it('it should register candidate to a non existing office', (done) => {
+      chai.request(server)
+        .post('/api/v1/offices/12/register')
+        .set('x-http-token', token)
+        .send({
+          party: 1,
+          user: 1,
+        })
+        .end((err, res) => {
+          res.should.have.status(404);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+
+    xit('it should register candidate', (done) => {
+      chai.request(server)
+        .post('/api/v1/offices/1/register')
+        .set('x-http-token', token)
+        .send({
+          party: 1,
+          user: 1,
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+
+    xit('it should register candidate twice', (done) => {
+      chai.request(server)
+        .post('/api/v1/offices/1/register')
+        .set('x-http-token', token)
+        .send({
+          party: 1,
+          user: 1,
+        })
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+  });
+
+  describe('GET election results for specific office', () => {
+    it('it should the results', (done) => {
+      chai.request(server)
+        .get('/api/v1/offices/1/result')
+        .set('x-http-token', token)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
+  });
 });
