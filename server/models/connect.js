@@ -1,6 +1,5 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
-import app from '../index';
 
 dotenv.config();
 

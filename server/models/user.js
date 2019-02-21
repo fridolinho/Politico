@@ -25,13 +25,13 @@ class Users {
     this.salt = await bcrypt.genSalt(8);
     this.password = await bcrypt.hash(data.password, this.salt);
     this.newUser = [
-      data.firstName,
-      data.lastName,
+      data.firstName.trim(),
+      data.lastName.trim(),
       data.otherName,
-      data.email,
-      data.phoneNumber,
-      this.password,
-      data.passportUrl,
+      data.email.trim(),
+      data.phoneNumber.trim(),
+      this.password.trim(),
+      data.passportUrl.trim(),
     ];
     this.user = [];
     this.res = await pool.query(`INSERT INTO

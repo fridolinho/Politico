@@ -55,7 +55,7 @@ class User {
     const validPassword = await bcrypt.compare(req.body.password, user[0].password);
     if (validPassword) {
       const newUser = _.omit(user, 'password');
-      const token = jwt.sign({ newUser }, process.env.PRIVATE_KEY, { expiresIn: 360 });
+      const token = jwt.sign({ newUser }, process.env.PRIVATE_KEY, { expiresIn: 1800 });
       return res.status(200).send({
         status: 200,
         data: [{

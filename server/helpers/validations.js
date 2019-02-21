@@ -57,7 +57,7 @@ export const validateParty = (data, method) => {
 export const validateCandidate = (data) => {
   const schema = {
     party: Joi.number().integer().required(),
-    candidate: Joi.number().integer().required(),
+    user: Joi.number().integer().required(),
   };
 
   const { error } = Joi.validate(data, schema);

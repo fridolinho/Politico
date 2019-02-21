@@ -10,4 +10,8 @@ router.get('/:id', auth, Party.getOne);
 router.patch('/:id', auth, Party.update);
 router.delete('/:id', auth, Party.remove);
 
+router.all('/*', (req, res) => {
+  res.status(404).send('not found');
+});
+
 export default router;
