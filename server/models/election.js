@@ -44,6 +44,27 @@ class Elections {
     const res = await pool.query('SELECT * FROM candidate WHERE office = $1 ORDER BY votes DESC', [this.id]);
     return res.rows;
   }
+
+  async registerPetition(data) {
+    this.petition = [
+      data.createdBy,
+      data.office,
+      data.body,
+    ];
+    const result = await pool.query('INSERT INTO petition ("createdBy", office, body) VALUES ($1, $2, $3) RETURNING *', this.petition);
+    return result.rows;
+  }
+
+  async checkPetition(data) {
+    this.petition = [
+      data.body,
+      data.office,
+    ];
+    const result = [];
+    this.res = await pool.query('SELECT * FROM petition WHERE body = $1 AND "office" = $2', this.petition);
+    if (this.res.rowCount !== 0) result.push(this.res.rows[0]);
+    return result;
+  }
 }
 
 export default new Elections();
