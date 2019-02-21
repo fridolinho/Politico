@@ -8,7 +8,6 @@ chai.should();
 chai.expect();
 chai.use(chaiHttp);
 
-
 describe('User', () => {
   before(async () => {
     try {
