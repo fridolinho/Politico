@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import mailer from 'node-mailer';
 import pool from './connect';
 
 class Users {
@@ -47,6 +48,20 @@ class Users {
     `, this.newUser);
     this.user.push(this.res.rows[0]);
     return this.user;
+  }
+
+  async sendResetEmail(email) {
+    this.email = email;
+    mailer.Mail({
+      from: 'fridolinho@gmail.com',
+      to: this.email,
+      subject: 'Political app password Reset',
+      body: 'My body',
+      callback: function(err, data){
+        console.log(err);
+        console.log(data);
+      }
+    });
   }
 }
 

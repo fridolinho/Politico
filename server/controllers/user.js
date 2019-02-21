@@ -70,6 +70,18 @@ class User {
       error: 'Wrong email or password',
     });
   }
+
+  static async reset(req, res) {
+    const user = await Users.checkEmail(req.body.email);
+    if (user.length === 0) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Wrong email or password',
+      });
+    }
+    Users.sendResetEmail(req.body.email);
+
+  }
 }
 
 export default User;
