@@ -1,5 +1,5 @@
 /server/models/connect.js
-/.env
+.env
 /node_modules
 /.nyc_output/
 /coverage/
