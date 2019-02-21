@@ -1,9 +1,11 @@
 import pg from 'pg';
 import dotenv from 'dotenv';
+import app from '../index';
 
 dotenv.config();
+
 const pool = new pg.Pool({
-  connectionString: process.env.DATABASE_URL2,
+  connectionString: process.env.DATABASE_URL,
 });
 
 pool.on('connect', () => {
