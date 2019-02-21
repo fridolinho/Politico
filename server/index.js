@@ -26,6 +26,10 @@ app.get('/', (req, res) => {
   res.send('Welcome to Politico app');
 });
 
+app.all('/*', (req, res) => {
+  res.status(404).send('not found');
+});
+
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`listening to port ${port}...`));
 export default app;

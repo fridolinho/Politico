@@ -6,4 +6,8 @@ const router = express.Router();
 
 router.post('/', auth, Elections.registerPetition);
 
+router.all('/*', (req, res) => {
+  res.status(404).send('not found');
+});
+
 export default router;

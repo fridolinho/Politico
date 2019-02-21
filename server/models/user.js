@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import mailer from 'node-mailer';
 import pool from './connect';
 
 class Users {
@@ -24,13 +25,13 @@ class Users {
     this.salt = await bcrypt.genSalt(8);
     this.password = await bcrypt.hash(data.password, this.salt);
     this.newUser = [
-      data.firstName,
-      data.lastName,
+      data.firstName.trim(),
+      data.lastName.trim(),
       data.otherName,
-      data.email,
-      data.phoneNumber,
-      this.password,
-      data.passportUrl,
+      data.email.trim(),
+      data.phoneNumber.trim(),
+      this.password.trim(),
+      data.passportUrl.trim(),
     ];
     this.user = [];
     this.res = await pool.query(`INSERT INTO
@@ -47,6 +48,20 @@ class Users {
     `, this.newUser);
     this.user.push(this.res.rows[0]);
     return this.user;
+  }
+
+  async sendResetEmail(email) {
+    this.email = email;
+    mailer.Mail({
+      from: 'fridolinho@gmail.com',
+      to: this.email,
+      subject: 'Political app password Reset',
+      body: 'My body',
+      callback: function(err, data){
+        console.log(err);
+        console.log(data);
+      }
+    });
   }
 }
 

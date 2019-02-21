@@ -55,7 +55,7 @@ class User {
     const validPassword = await bcrypt.compare(req.body.password, user[0].password);
     if (validPassword) {
       const newUser = _.omit(user, 'password');
-      const token = jwt.sign({ newUser }, process.env.PRIVATE_KEY, { expiresIn: 360 });
+      const token = jwt.sign({ newUser }, process.env.PRIVATE_KEY, { expiresIn: 1800 });
       return res.status(200).send({
         status: 200,
         data: [{
@@ -69,6 +69,18 @@ class User {
       status: 404,
       error: 'Wrong email or password',
     });
+  }
+
+  static async reset(req, res) {
+    const user = await Users.checkEmail(req.body.email);
+    if (user.length === 0) {
+      return res.status(404).send({
+        status: 404,
+        error: 'Wrong email or password',
+      });
+    }
+    Users.sendResetEmail(req.body.email);
+
   }
 }
 

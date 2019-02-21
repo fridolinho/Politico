@@ -3,9 +3,9 @@ import pool from './connect';
 class Parties {
   async createParty(data) {
     this.newParty = [
-      data.name,
-      data.hqAddress,
-      data.logoUrl,
+      data.name.trim(),
+      data.hqAddress.trim(),
+      data.logoUrl.trim(),
     ];
 
     this.res = await pool.query('INSERT INTO party (name, "hqAddress", "logoUrl") VALUES($1, $2, $3) RETURNING *', this.newParty);
@@ -37,9 +37,9 @@ class Parties {
     const newLogoUrl = data.logoUrl || party[0].logoUrl;
     this.newId = parseInt(id, 10);
     this.newData = [
-      newName,
-      newHqAddress,
-      newLogoUrl,
+      newName.trim(),
+      newHqAddress.trim(),
+      newLogoUrl.trim(),
       this.newId,
     ];
     this.res = await pool.query('UPDATE party SET name = $1, "hqAddress" = $2, "logoUrl" = $3 WHERE id = $4 RETURNING *', this.newData);
@@ -48,7 +48,7 @@ class Parties {
 
   async checkParty(name) {
     this.party = [];
-    const res = await pool.query('SELECT * FROM party WHERE name = $1', [name]);
+    const res = await pool.query('SELECT * FROM party WHERE name = $1', [name.trim()]);
     if (res.rowCount > 0) {
       this.party.push(res.rows[0]);
     }

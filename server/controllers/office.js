@@ -71,14 +71,6 @@ class Office {
       });
     }
 
-    const candidate = await Offices.checkCandidate(req.body.candidate);
-    if (candidate.length !== 0) {
-      return res.status(409).send({
-        status: 409,
-        error: 'you have already registered as a candidate',
-      });
-    }
-
     const party = await Parties.getSpecificParty(req.body.party);
     if (party.length !== 1) {
       return res.status(404).send({
@@ -99,6 +91,14 @@ class Office {
       return res.status(404).send({
         status: 404,
         error: 'User not found',
+      });
+    }
+
+    const candidate = await Offices.checkCandidate(req.body.candidate);
+    if (candidate.length !== 0) {
+      return res.status(409).send({
+        status: 409,
+        error: 'you have already registered as a candidate',
       });
     }
 
