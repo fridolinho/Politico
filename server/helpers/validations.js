@@ -74,3 +74,14 @@ export const validateVote = (data) => {
   const { error } = Joi.validate(data, schema);
   return error;
 };
+
+export const validatePetition = (data) => {
+  const schema = {
+    createdBy: Joi.number().integer().required(),
+    office: Joi.number().integer().required(),
+    body: Joi.string().required().trim(),
+  };
+
+  const { error } = Joi.validate(data, schema);
+  return error;
+};
