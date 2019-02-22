@@ -76,11 +76,18 @@ class User {
     if (user.length === 0) {
       return res.status(404).send({
         status: 404,
-        error: 'Wrong email or password',
+        error: 'Email not found',
       });
     }
-    Users.sendResetEmail(req.body.email);
 
+    Users.sendResetEmail(req, res);
+    return res.status(200).send({
+      status: 200,
+      data: [{
+        message: 'check your email for password reset link',
+        email: req.body.email,
+      }],
+    });
   }
 }
 

@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
-import mailer from 'node-mailer';
+import mailer from 'nodemailer';
+import jwt from 'jsonwebtoken';
 import pool from './connect';
 
 class Users {
@@ -48,16 +49,33 @@ class Users {
     return [this.res.rows[0]];
   }
 
-  async sendResetEmail(email) {
-    this.email = email;
-    mailer.Mail({
-      from: 'fridolinho@gmail.com',
-      to: this.email,
-      subject: 'Political app password Reset',
-      body: 'My body',
-      callback: function(err, data){
-        console.log(err);
-        console.log(data);
+  async sendResetEmail(req, res) {
+    const email = req.body.email;
+    const token = await jwt.sign({ email }, process.env.PRIVATE_KEY, { expiresIn: '24h' });
+    const transporter = await mailer.createTransport({
+      service: 'gmail',
+      auth: {
+        user: 'fridolinho@gmail.com',
+        pass: 'Rwagasore@89',
+      },
+    });
+
+    const mailerOptions = {
+      from: 'admin_@politico.com',
+      to: email,
+      subject: 'Politico-fr password reset',
+      html: `
+      <p>User this link to reset your password <a href='https://politico-api-service.herokuapp.com/api/v1/auth/${token}'>Reset link</a> </p>
+    `,
+    };
+
+    // Sending the email
+    await transporter.sendMail(mailerOptions, (error) => {
+      if (error) {
+        return res.status(500).json({
+          status: 500,
+          error: 'An error has occured while sending the reset password link',
+        });
       }
     });
   }
