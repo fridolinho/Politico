@@ -1,6 +1,8 @@
 import 'babel-polyfill';
+import swaggerUi from 'swagger-ui-express';
 import express from 'express';
 import bodyParser from 'body-parser';
+import swaggerDocument from '../swagger.json';
 import party from './routes/party';
 import office from './routes/office';
 import user from './routes/user';
@@ -9,6 +11,7 @@ import petition from './routes/petition';
 
 const app = express();
 app.use(express.json());
+app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 app.use(bodyParser.json());
 app.use(
   bodyParser.urlencoded({
