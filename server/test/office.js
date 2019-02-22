@@ -53,6 +53,16 @@ describe('Office', () => {
           done();
         });
     });
+    it('it should not show specific political office with invalid parameter', (done) => {
+      chai.request(server)
+        .get('/api/v1/offices/1t')
+        .set('x-http-token', token)
+        .end((err, res) => {
+          res.should.have.status(400);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
   });
 
   describe('Register candidate for Political office', () => {   

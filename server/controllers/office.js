@@ -46,6 +46,12 @@ class Office {
   // get specific political office
 
   static async getOne(req, res) {
+    if (isNaN(req.params.id)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'invalid url',
+      });
+    }
     const result = await Offices.getSpecificOffice(req.params.id);
     if (result.length === 0) {
       return res.status(404).send({
