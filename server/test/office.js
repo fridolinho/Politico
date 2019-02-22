@@ -12,14 +12,7 @@ chai.use(chaiHttp);
 
 
 describe('Office', () => {
-  before(async () => {
-    try {
-      await pool.query('TRUNCATE office CASCADE; ALTER SEQUENCE office_id_seq RESTART WITH 1;');
-    } catch (error) {
-      console.log(error);
-    }
-  });
-
+  
   describe('GET all Political offices', () => {
     it('First log in the user to generate the token', (done) => {
       chai.request(server)
@@ -35,20 +28,7 @@ describe('Office', () => {
           done();
         });
     });
-    it('it should POST an office', (done) => {
-      chai.request(server)
-        .post('/api/v1/offices')
-        .set('x-http-token', token)
-        .send({
-          type: 'federal',
-          name: 'Governor',
-        })
-        .end((err, res) => {
-          res.should.have.status(201);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
+    
     it('it should show all political offices', (done) => {
       chai.request(server)
         .get('/api/v1/offices')
@@ -73,26 +53,20 @@ describe('Office', () => {
           done();
         });
     });
-  });
-
-  describe('Register candidate for Political office', () => {
-    it('it should register a party for use to register candidate', (done) => {
+    it('it should not show specific political office with invalid parameter', (done) => {
       chai.request(server)
-        .post('/api/v1/parties')
+        .get('/api/v1/offices/1t')
         .set('x-http-token', token)
-        .send({
-          name: 'RPF',
-          hqAddress: 'Kacyiru',
-          logoUrl: 'rpf.png',
-        })
         .end((err, res) => {
-          res.should.have.status(201);
+          res.should.have.status(400);
           res.body.should.be.a('object');
-          console.log(res.body);
           done();
         });
     });
-    it('it should register candidate with string instead of int', (done) => {
+  });
+
+  describe('Register candidate for Political office', () => {   
+    it('it should not register candidate with string instead of int', (done) => {
       chai.request(server)
         .post('/api/v1/offices/1/register')
         .set('x-http-token', token)
@@ -106,7 +80,7 @@ describe('Office', () => {
           done();
         });
     });
-    it('it should register candidate with missing field', (done) => {
+    it('it should not register candidate with missing field', (done) => {
       chai.request(server)
         .post('/api/v1/offices/1/register')
         .set('x-http-token', token)
@@ -119,7 +93,7 @@ describe('Office', () => {
           done();
         });
     });
-    it('it should register candidate to a non existing party', (done) => {
+    it('it should not register candidate to a non existing party', (done) => {
       chai.request(server)
         .post('/api/v1/offices/1/register')
         .set('x-http-token', token)
@@ -157,36 +131,6 @@ describe('Office', () => {
         })
         .end((err, res) => {
           res.should.have.status(404);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
-
-    xit('it should register candidate', (done) => {
-      chai.request(server)
-        .post('/api/v1/offices/1/register')
-        .set('x-http-token', token)
-        .send({
-          party: 1,
-          user: 1,
-        })
-        .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
-          done();
-        });
-    });
-
-    xit('it should register candidate twice', (done) => {
-      chai.request(server)
-        .post('/api/v1/offices/1/register')
-        .set('x-http-token', token)
-        .send({
-          party: 1,
-          user: 1,
-        })
-        .end((err, res) => {
-          res.should.have.status(200);
           res.body.should.be.a('object');
           done();
         });

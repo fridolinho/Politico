@@ -41,15 +41,5 @@ class Offices {
     }
     return this.result;
   }
-
-  async addCandidate(data, id) {
-    this.candidate = [
-      id,
-      data.party,
-      data.user,
-    ];
-    const res = await pool.query('INSERT INTO candidate (office, party, candidate) VALUES ($1, $2, $3) RETURNING *', this.candidate);
-    return [res.rows[0]];
-  }
 }
 export default new Offices();

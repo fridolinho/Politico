@@ -101,10 +101,26 @@ const createTables = () => {
 };
 
 const truncateUsers = () => {
-  const truncate = `TRUNCATE users CASCADE;
-                    ALTER SEQUENCE users_id_seq RESTART WITH 1;
+  const users = `TRUNCATE users CASCADE;
+                    ALTER SEQUENCE users_id_seq RESTART WITH 1;  
                     `;
-  pool.query(truncate)
+  const office = `TRUNCATE office CASCADE;
+                    ALTER SEQUENCE office_id_seq RESTART WITH 1;  
+                    `;
+  const party = `TRUNCATE party CASCADE;
+                    ALTER SEQUENCE party_id_seq RESTART WITH 1;  
+                    `;
+  const petition = `TRUNCATE petition CASCADE;
+                    ALTER SEQUENCE petition_id_seq RESTART WITH 1;  
+                    `;
+  const candidate = `TRUNCATE candidate CASCADE;
+                    ALTER SEQUENCE candidate_id_seq RESTART WITH 1;  
+                    `;
+  const vote = `TRUNCATE vote CASCADE;
+                    ALTER SEQUENCE vote_id_seq RESTART WITH 1;  
+                    `;
+  const deleteQueries = `${users}; ${office}; ${party}; ${candidate}; ${vote}; ${petition}`;
+  pool.query(deleteQueries)
     .then((res) => {
       console.log(res);
       pool.end();

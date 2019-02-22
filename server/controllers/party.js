@@ -41,6 +41,12 @@ class Party {
   // Fetch a specific political party record
 
   static async getOne(req, res) {
+    if (isNaN(req.params.id)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'invalid url',
+      });
+    }
     const result = await Parties.getSpecificParty(req.params.id);
     if (result.length === 0) {
       return res.status(404).send({
@@ -57,6 +63,12 @@ class Party {
   // Update a specific political party
 
   static async update(req, res) {
+    if (isNaN(req.params.id)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'invalid url',
+      });
+    }
     const error = validateParty(req.body, req.method);
     if (error) {
       return res.status(400).send({
@@ -90,6 +102,12 @@ class Party {
   // delete a particular political party
 
   static async remove(req, res) {
+    if (isNaN(req.params.id)) {
+      return res.status(400).send({
+        status: 400,
+        error: 'invalid url',
+      });
+    }
     const result = await Parties.getSpecificParty(req.params.id);
 
     if (result.length !== 0) {
