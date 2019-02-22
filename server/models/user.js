@@ -33,7 +33,6 @@ class Users {
       this.password.trim(),
       data.passportUrl.trim(),
     ];
-    this.user = [];
     this.res = await pool.query(`INSERT INTO
       users(
       "firstName",
@@ -46,8 +45,7 @@ class Users {
       )
       VALUES($1, $2, $3, $4, $5, $6, $7) RETURNING *
     `, this.newUser);
-    this.user.push(this.res.rows[0]);
-    return this.user;
+    return [this.res.rows[0]];
   }
 
   async sendResetEmail(email) {

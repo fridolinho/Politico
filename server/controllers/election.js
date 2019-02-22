@@ -13,7 +13,7 @@ class Election {
         error: error.details[0].message,
       });
     }
- 
+
     const vote = await Elections.checkVote(req.body);
     if (vote.length > 0) {
       return res.status(409).send({
@@ -22,7 +22,7 @@ class Election {
       });
     }
 
-    const voter = await Users.getSpecificUser(req.body.voter);
+    const voter = await Users.getSpecificUser(req.body.createdBy);
     if (voter.length === 0) {
       return res.status(404).send({
         status: 404,
@@ -96,8 +96,8 @@ class Election {
 
     const results = await Elections.registerPetition(req.body);
     if (results.length !== 0) {
-      return res.status(200).send({
-        status: 200,
+      return res.status(201).send({
+        status: 201,
         data: results
       })
     }

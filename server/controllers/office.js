@@ -86,7 +86,7 @@ class Office {
       });
     }
 
-    const user = await Users.getSpecificUser(req.body.candidate);
+    const user = await Users.getSpecificUser(req.body.user);
     if (user.length !== 1) {
       return res.status(404).send({
         status: 404,
@@ -94,7 +94,7 @@ class Office {
       });
     }
 
-    const candidate = await Offices.checkCandidate(req.body.candidate);
+    const candidate = await Offices.checkCandidate(req.body.user);
     if (candidate.length !== 0) {
       return res.status(409).send({
         status: 409,

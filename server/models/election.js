@@ -5,7 +5,7 @@ class Elections {
     this.candidate = [
       id,
       data.party,
-      data.candidate,
+      data.user,
     ];
     this.res = await pool.query('INSERT INTO candidate (office, party, candidate) VALUES ($1, $2, $3) RETURNING *', this.candidate);
     return [this.res.rows[0]];
@@ -19,7 +19,7 @@ class Elections {
     this.candidate = [
       data.office,
       data.candidate,
-      data.voter,
+      data.createdBy,
     ];
     const result = [];
     this.res = await pool.query('INSERT INTO vote (office, candidate, "createdBy") VALUES ($1, $2, $3) RETURNING *', this.candidate);
@@ -30,7 +30,7 @@ class Elections {
   async checkVote(data) {
     this.vote = [
       data.office,
-      data.voter,
+      data.createdBy,
     ];
     const result = [];
     this.res = await pool.query('SELECT * FROM vote WHERE office = $1 AND "createdBy" = $2', this.vote);
