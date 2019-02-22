@@ -12,6 +12,10 @@ Politico enables citizens give their mandate to politicians running for differen
 
 ## API ENDPOINTS
 
+### SWAGGER DOCUMENTATION 
+
+[SWAGGER link](http://politico-fr.herokuapp.com/swagger/)
+
 | Ressource URL | Methods  | Description  |
 | ------- | --- | --- |
 | / | GET | The index (welcome message) |

@@ -1,0 +1,688 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "Politico enables citizens give their mandate to politicians running for different government offices while building trust in the process through transparency.",
+    "version": "1.0.0",
+    "title": "Politico"
+  },
+  "host": "politico-fr.herokuapp.com",
+  "tags": [
+    {
+      "name": "Politico",
+      "description": "Politico enables citizens give their mandate to politicians running for different government offices",
+      "externalDocs": {
+        "description": "Find out more about parties",
+        "url": "api/v1/"
+      }
+    }
+  ],
+  "schemes": [
+    "https",
+    "http"
+  ],
+  "paths": {
+    "/auth/signup": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Creates  a new users",
+        "description": "",
+        "operationId": "createUsersWithArrayInput",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "List of user object",
+            "required": true,
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/User"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "User created successfully"
+          },
+          "409": {
+            "description": "Email Already Exist"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "Logs user into the system",
+        "description": "",
+        "operationId": "loginUser",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "successfully logged in"
+          },
+          "401": {
+            "description": "Incorrect Email or password"
+          },
+          "404": {
+            "description": "User Not found"
+          }
+        }
+      }
+    },
+    "/parties": {
+      "post": {
+        "tags": [
+          "parties"
+        ],
+        "summary": "Add a new party in database ",
+        "description": "",
+        "operationId": "createNewParty",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Party object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Party"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Party created Successfully"
+          },
+          "409": {
+            "description": "Party Name Already Exist"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        }
+      }
+    },
+    "/parties/": {
+      "get": {
+        "tags": [
+          "parties"
+        ],
+        "summary": "Get a list of all parties",
+        "description": "Get a list of all parties",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Party"
+            }
+          },
+          "204": {
+            "description": "Party not found"
+          },
+          "500": {
+            "description": "Internal Error"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/parties/<party-id>/name": {
+      "patch": {
+        "tags": [
+          "parties"
+        ],
+        "summary": "Edit the name of a specific political party .",
+        "description": "Edit the name of a specific political party .",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Party"
+            }
+          },
+          "204": {
+            "description": "Party eith id  not found"
+          },
+          "500": {
+            "description": "Invalid ID supplied"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/parties/<party-id>": {
+      "delete": {
+        "tags": [
+          "parties"
+        ],
+        "summary": "Delete a specific political party.",
+        "description": "",
+        "operationId": "deletePet",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_party",
+            "in": "path",
+            "description": "Party id to delete",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Party not found"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets",
+              "read:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/offices": {
+      "post": {
+        "tags": [
+          "offices"
+        ],
+        "summary": "Create a political office",
+        "description": "Create a political office",
+        "operationId": "createNewOffice",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Office object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Office"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Office created Successfully"
+          }
+        }
+      }
+    },
+    "/offices/": {
+      "get": {
+        "tags": [
+          "offices"
+        ],
+        "summary": "Fetch all political offices records",
+        "description": "Fetch all political offices records",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "successful operation",
+            "schema": {
+              "$ref": "#/definitions/Office"
+            }
+          },
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Office not found"
+          }
+        },
+        "security": [
+          {
+            "api_key": []
+          }
+        ]
+      }
+    },
+    "/offices/<office-id>": {
+      "get": {
+        "tags": [
+          "offices"
+        ],
+        "summary": "Fetch a specific political office record.",
+        "description": "",
+        "operationId": "fetchOffice",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_office",
+            "in": "path",
+            "description": "Office Id to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Office not found"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/offices/<office-id>/register": {
+      "post": {
+        "tags": [
+          "offices"
+        ],
+        "summary": "Register a user as a candidate running for a political office .",
+        "description": "",
+        "operationId": "register",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_office",
+            "in": "path",
+            "description": "Office Id to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Office not found"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/office/<office-id>/result": {
+      "get": {
+        "tags": [
+          "offices"
+        ],
+        "summary": "fetch the result of specific office following a concluded election",
+        "description": "",
+        "operationId": "result",
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id_office",
+            "in": "path",
+            "description": "Office Id to fetch",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "400": {
+            "description": "Invalid ID supplied"
+          },
+          "404": {
+            "description": "Office not found"
+          }
+        },
+        "security": [
+          {
+            "petstore_auth": [
+              "write:pets"
+            ]
+          }
+        ]
+      }
+    },
+    "/votes/": {
+      "post": {
+        "tags": [
+          "votes"
+        ],
+        "summary": "Vote for a candidate .",
+        "description": "Vote for a candidate .",
+        "operationId": "voteCandidate",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Vote object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Vote"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Vote created Successfully"
+          }
+        }
+      }
+    },
+    "/petitions/": {
+      "post": {
+        "tags": [
+          "petitions"
+        ],
+        "summary": "Create petitions.",
+        "description": "Create petitions challenging the outcome of a concluded election.",
+        "operationId": "createPetition",
+        "consumes": [
+          "application/json",
+          "application/xml"
+        ],
+        "produces": [
+          "application/xml",
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "description": "Petition object that needs to be added to the database",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Petition"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Petition created Successfully"
+          }
+        }
+      }
+    }
+  },
+  "securityDefinitions": {
+    "petstore_auth": {
+      "type": "oauth2",
+      "authorizationUrl": "http://petstore.swagger.io/oauth/dialog",
+      "flow": "implicit",
+      "scopes": {
+        "write:pets": "modify pets in your account",
+        "read:pets": "read your pets"
+      }
+    },
+    "api_key": {
+      "type": "apiKey",
+      "name": "api_key",
+      "in": "header"
+    }
+  },
+  "definitions": {
+    "User": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "username": {
+          "type": "string"
+        },
+        "firstName": {
+          "type": "string"
+        },
+        "lastName": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
+          "type": "string"
+        },
+        "passport_url": {
+          "type": "string"
+        },
+        "isAdmin": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Is Admin"
+        }
+      },
+      "xml": {
+        "name": "User"
+      }
+    },
+    "Party": {
+      "type": "object",
+      "required": [
+        "name",
+        "hqAddress",
+        "logoUrl"
+      ],
+      "properties": {
+        "id_party": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string",
+          "example": "Party A"
+        },
+        "hqAddress": {
+          "type": "string",
+          "example": " Kigali Rwanda"
+        },
+        "logoUrl": {
+          "type": "string",
+          "example": "https://wwww.jgnkm/cj"
+        }
+      },
+      "xml": {
+        "name": "Party"
+      }
+    },
+    "Office": {
+      "type": "object",
+      "required": [
+        "id_office",
+        "type",
+        "name"
+      ],
+      "properties": {
+        "id_office": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "type": {
+          "type": "string",
+          "example": "Legislative"
+        },
+        "name": {
+          "type": "string",
+          "example": " Office A"
+        }
+      },
+      "xml": {
+        "name": "Office"
+      }
+    },
+    "Candidate": {
+      "type": "object",
+      "required": [
+        "id_candidate",
+        "office",
+        "party",
+        "candidate"
+      ],
+      "properties": {
+        "id_candidate": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "office": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "party": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "candidate": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Vote": {
+      "type": "object",
+      "required": [
+        "id_vote",
+        "createdOn",
+        "createdBy",
+        "office",
+        "candidate"
+      ],
+      "properties": {
+        "id_vote": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdBy": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "office": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "candidate": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "Petition": {
+      "type": "object",
+      "required": [
+        "id_petition",
+        "createdOn",
+        "createdBy",
+        "office",
+        "body"
+      ],
+      "properties": {
+        "id_vote": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "createdOn": {
+          "type": "string",
+          "format": "int64"
+        },
+        "createdBy": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "office": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "body": {
+          "type": "string",
+          "format": "int64"
+        }
+      },
+      "xml": {
+        "name": "Office"
+      }
+    }
+  }
+}
