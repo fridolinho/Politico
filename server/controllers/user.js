@@ -24,7 +24,7 @@ class User {
     }
 
     const addedUser = await Users.addUser(req.body);
-    const newUser = _.omit(addedUser, 'password');
+    const newUser = _.omit(addedUser[0], 'password');
     const token = jwt.sign({ newUser }, process.env.PRIVATE_KEY, { expiresIn: 360 });
     return res.status(201).send({
       status: 201,
