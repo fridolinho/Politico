@@ -30,7 +30,7 @@ class User {
       status: 201,
       data: [{
         token,
-        user: newUser[0],
+        user: newUser,
       }],
     });
   }
